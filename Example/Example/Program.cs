@@ -1,4 +1,4 @@
-﻿namespace ProceduralLevel.ConsoleCanvas.Example
+﻿namespace ProceduralLevel.ConsoleApp.Example
 {
 	public class Program
 	{

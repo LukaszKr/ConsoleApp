@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace ProceduralLevel.ConsoleCanvas
+namespace ProceduralLevel.ConsoleApp
 {
 	public class Canvas
 	{

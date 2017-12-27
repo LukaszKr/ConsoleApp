@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProceduralLevel.ConsoleCanvas
+namespace ProceduralLevel.ConsoleApp
 {
 	public class Window
 	{
