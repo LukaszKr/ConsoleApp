@@ -13,22 +13,22 @@ namespace ProceduralLevel.ConsoleCanvas
 			Canvas = canvas;
 		}
 
+		public void SetColor(ConsoleColor textColor, ConsoleColor bgColor)
+		{
+			TextColor = textColor;
+			BGColor = bgColor;
+		}
+
 		public bool DrawChar(char chr, int posX, int posY)
 		{
 			return Canvas.Plot(new Pixel(chr, TextColor, BGColor), posX, posY);
 		}
 
-		public void DrawText(string text, int posX, int posY, bool vCenter = false)
+		public void DrawText(string text, int posX, int posY)
 		{
-			if(string.IsNullOrEmpty(text))
-			{
-				return;
-			}
-			int vOffset = (vCenter ? text.Length/2 : 0);
-
 			for(int x = 0; x < text.Length; x++)
 			{
-				DrawChar(text[x], posX+x-vOffset, posY);
+				DrawChar(text[x], posX+x, posY);
 			}
 		}
 
@@ -59,23 +59,23 @@ namespace ProceduralLevel.ConsoleCanvas
 			DrawGrid(posX, posY, 1, 1, width-1, height-1, horizontal, vertical, cross);
 		}
 
-		public void DrawGrid(int posX, int posY, int width, int height, int cellX, int cellY, string horizontal, string vertical, char cross)
+		public void DrawGrid(int posX, int posY, int width, int height, int cellWidth, int cellHeight, string horizontal, string vertical, char cross)
 		{
 			for(int y = 0; y <= height; y++)
 			{
-				DrawRect(horizontal, posX, posY+y*cellY, width*cellX, 1);
+				DrawRect(horizontal, posX, posY+y*cellHeight, width*cellWidth, 1);
 			}
 
 			for(int x = 0; x <= width; x++)
 			{
-				DrawRect(vertical, posX+x*cellX, posY, 1, height*cellY);
+				DrawRect(vertical, posX+x*cellWidth, posY, 1, height*cellHeight);
 			}
 
 			for(int x = 0; x <= width; x++)
 			{
 				for(int y = 0; y <= height; y++)
 				{
-					DrawChar(cross, posX+x*cellX, posY+y*cellY);
+					DrawChar(cross, posX+x*cellWidth, posY+y*cellHeight);
 				}
 			}
 		}
