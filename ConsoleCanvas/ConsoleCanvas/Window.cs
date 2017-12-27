@@ -14,7 +14,7 @@ namespace ProceduralLevel.ConsoleCanvas
 		public Canvas Canvas { get { return m_Canvas; } }
 
 		public Window(string title)
-			: this(title, Console.LargestWindowWidth, Console.LargestWindowHeight - 1)
+			: this(title, Console.LargestWindowWidth, Console.LargestWindowHeight-1)
 		{
 
 		}
@@ -30,7 +30,7 @@ namespace ProceduralLevel.ConsoleCanvas
 		public void Render()
 		{
 			if(Console.WindowWidth != m_Width || Console.WindowHeight != m_Height ||
-				Console.BufferWidth != m_Width || Console.BufferHeight != m_Height + 1)
+				Console.BufferWidth != m_Width || Console.BufferHeight != m_Height+1)
 			{
 				SetSize(m_Width, m_Height);
 			}
@@ -43,13 +43,13 @@ namespace ProceduralLevel.ConsoleCanvas
 			m_Height = height;
 			Console.SetWindowSize(width, height);
 			Console.BufferWidth = width;
-			Console.BufferHeight = height + 1;
+			Console.BufferHeight = height+1;
 		}
 
 		public void SetMaxSize()
 		{
 			Console.SetWindowPosition(0, 0);
-			SetSize(Console.LargestWindowWidth, Console.LargestWindowHeight - 1);
+			SetSize(Console.LargestWindowWidth, Console.LargestWindowHeight-1);
 		}
 	}
 }

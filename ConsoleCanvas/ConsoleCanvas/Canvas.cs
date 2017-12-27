@@ -9,14 +9,13 @@ namespace ProceduralLevel.ConsoleCanvas
 
 		public readonly int Width;
 		public readonly int Height;
-
-		public ConsoleColor TextColor = ConsoleColor.White;
-		public ConsoleColor BGColor = ConsoleColor.Black;
+		public readonly Painter Painter;
 
 		public Canvas(int width, int height)
 		{
 			Width = width;
 			Height = height;
+			Painter = new Painter(this);
 
 			FrameBuffer = new Pixel[width][];
 			for(int x = 0; x < width; ++x)
@@ -24,7 +23,7 @@ namespace ProceduralLevel.ConsoleCanvas
 				FrameBuffer[x] = new Pixel[height];
 				for(int y = 0; y < height; ++y)
 				{
-					FrameBuffer[x][y] = new Pixel(' ', TextColor, BGColor);
+					FrameBuffer[x][y] = new Pixel(' ', Painter.TextColor, Painter.BGColor);
 				}
 			}
 		}
@@ -36,8 +35,8 @@ namespace ProceduralLevel.ConsoleCanvas
 			maxWidth = Math.Max(maxWidth, 0);
 			maxHeight = Math.Max(maxHeight, 0);
 
-			ConsoleColor textColor = TextColor;
-			ConsoleColor bgColor = BGColor;
+			ConsoleColor textColor = 0;
+			ConsoleColor bgColor = 0;
 
 			StringBuilder builder = new StringBuilder(Width);
 
@@ -63,7 +62,6 @@ namespace ProceduralLevel.ConsoleCanvas
 					}
 
 					builder.Append(pixel.Value);
-
 				}
 			}
 
@@ -72,7 +70,7 @@ namespace ProceduralLevel.ConsoleCanvas
 			Console.SetCursorPosition(posX, posY);
 		}
 
-		public bool DrawPixel(Pixel pixel, int posX, int posY)
+		public bool Plot(Pixel pixel, int posX, int posY)
 		{
 			if(posX >= 0 && posX < Width && posY >= 0 && posY < Height)
 			{
@@ -80,11 +78,6 @@ namespace ProceduralLevel.ConsoleCanvas
 				return true;
 			}
 			return false;
-		}
-
-		public bool DrawChar(char chr, int posX, int posY)
-		{
-			return DrawPixel(new Pixel(chr, TextColor, BGColor), posX, posY);
 		}
 
 		public void Clear()
@@ -98,69 +91,7 @@ namespace ProceduralLevel.ConsoleCanvas
 			{
 				for(int y = 0; y < height; y++)
 				{
-					DrawPixel(new Pixel(' ', ConsoleColor.White, ConsoleColor.Black), posX+x, posY+y);
-				}
-			}
-		}
-
-		public void DrawText(string text, int posX, int posY, bool vCenter = false)
-		{
-			if(string.IsNullOrEmpty(text))
-			{
-				return;
-			}
-			int vOffset = (vCenter? text.Length/2: 0);
-
-			for(int x = 0; x < text.Length; x++)
-			{
-				DrawChar(text[x], posX+x-vOffset, posY);
-			}
-		}
-
-		public void DrawRect(string value, int posX, int posY, int width, int height)
-		{
-			for(int y = 0; y < height; y++)
-			{
-				for(int x = 0; x < width; x++)
-				{
-					DrawChar(value[x % value.Length], posX+x, posY+y);
-				}
-			}
-		}
-
-		public void DrawCanvas(Canvas canvas, int posX, int posY)
-		{
-			for(int x = 0; x < canvas.Width; x++)
-			{
-				for(int y = 0; y < canvas.Height; y++)
-				{
-					DrawChar(canvas.FrameBuffer[x][y].Value, posX+x, posY+y);
-				}
-			}
-		}
-
-		public void DrawFrame(int posX, int posY, int width, int height, string horizontal, string vertical, char cross)
-		{
-			DrawGrid(posX, posY, 1, 1, width-1, height-1, horizontal, vertical, cross);
-		}
-
-		public void DrawGrid(int posX, int posY, int width, int height, int cellX, int cellY, string horizontal, string vertical, char cross)
-		{
-			for(int y = 0; y <= height; y++)
-			{
-				DrawRect(horizontal, posX, posY+y*cellY, width*cellX, 1);
-			}
-
-			for(int x = 0; x <= width; x++)
-			{
-				DrawRect(vertical, posX+x*cellX, posY, 1, height*cellY);
-			}
-
-			for(int x = 0; x <= width; x++)
-			{
-				for(int y = 0; y <= height; y++)
-				{
-					DrawChar(cross, posX+x*cellX, posY+y*cellY);
+					Plot(new Pixel(' ', ConsoleColor.White, ConsoleColor.Black), posX+x, posY+y);
 				}
 			}
 		}

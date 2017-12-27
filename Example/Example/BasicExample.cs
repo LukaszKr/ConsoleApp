@@ -8,9 +8,8 @@ namespace ProceduralLevel.ConsoleCanvas.Example
 
 		public BasicExample()
 		{
-			m_Console = new Window("BasicExample", 80, 20);
-			m_Console.Canvas.DrawText("Hello World!", m_Console.Width/2, m_Console.Height/2, true);
-			m_Console.Canvas.Render(0, 0);
+			m_Console = new Window("BasicExample", 80, 21);
+			m_Console.Canvas.Painter.DrawText("Hello World!", m_Console.Width/2, m_Console.Height/2, true);
 			m_Console.Render();
 			Console.ReadKey();
 		}

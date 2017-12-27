@@ -4,9 +4,9 @@ namespace ProceduralLevel.ConsoleCanvas
 {
 	public struct Pixel
 	{
-		public char Value;
-		public ConsoleColor TextColor;
-		public ConsoleColor BGColor;
+		public readonly char Value;
+		public readonly ConsoleColor TextColor;
+		public readonly ConsoleColor BGColor;
 
 		public Pixel(char value, ConsoleColor textColor, ConsoleColor bgColor)
 		{
