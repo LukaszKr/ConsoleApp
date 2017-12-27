@@ -1,9 +1,11 @@
 ﻿namespace ProceduralLevel.ConsoleCanvas.Example
 {
-    public class Program
-    {
-        static void Main(string[] args)
-        {
-        }
-    }
+	public class Program
+	{
+
+		static void Main(string[] args)
+		{
+			BasicExample example = new BasicExample();
+		}
+	}
 }
