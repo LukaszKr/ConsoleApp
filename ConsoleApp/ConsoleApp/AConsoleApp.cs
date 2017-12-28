@@ -24,11 +24,11 @@ namespace ProceduralLevel.ConsoleApp
 				m_RenderClock.Update();
 				if(m_LogicClock.Tick)
 				{
-					Update();
+					Update(m_LogicClock.TimeDelta);
 				}
 				if(m_RenderClock.Tick)
 				{
-					Render();
+					Render(m_RenderClock.TimeDelta);
 				}
 			}
 		}
@@ -38,7 +38,7 @@ namespace ProceduralLevel.ConsoleApp
 			m_Exit = true;
 		}
 
-		protected abstract void Render();
-		protected abstract void Update();
+		protected abstract void Render(double timeDelta);
+		protected abstract void Update(double timeDelta);
 	}
 }

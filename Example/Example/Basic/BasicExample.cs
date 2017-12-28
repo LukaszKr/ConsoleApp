@@ -13,7 +13,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console = new Window("BasicExample", 81, 21);
 		}
 
-		protected override void Render()
+		protected override void Render(double timeDelta)
 		{
 			string text = "Hello World!";
 			int px = m_Console.Width/2-text.Length/2;
@@ -25,7 +25,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Render();
 		}
 
-		protected override void Update()
+		protected override void Update(double timeDelta)
 		{
 			m_Offset ++;
 			m_Offset = m_Offset % m_Console.Width;

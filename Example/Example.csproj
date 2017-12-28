@@ -37,7 +37,9 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Example\BasicExample.cs" />
+    <Compile Include="Example\Basic\BasicExample.cs" />
+    <Compile Include="Example\Input\EInputLayer.cs" />
+    <Compile Include="Example\Input\InputManager.cs" />
     <Compile Include="Example\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
