@@ -1,4 +1,7 @@
-﻿namespace ProceduralLevel.ConsoleApp.Example
+﻿using ProceduralLevel.ConsoleApp.Input;
+using System;
+
+namespace ProceduralLevel.ConsoleApp.Example
 {
 	public class BasicExample: AConsoleApp
 	{
@@ -31,7 +34,7 @@
 			m_Offset ++;
 			m_Offset = m_Offset % m_Console.Width;
 
-			if(m_Input.Keyboard.AnyKeyPressed)
+			if(m_Input.Keyboard.Get(ConsoleKey.Escape).IsDown())
 			{
 				Exit();
 			}
