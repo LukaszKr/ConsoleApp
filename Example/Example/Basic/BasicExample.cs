@@ -28,7 +28,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Canvas.Clear(px-1, py-1, text.Length+2, 3);
 			m_Console.Canvas.DrawText(text, px, py);
 			m_Console.Canvas.SetColor(ConsoleColor.White, ConsoleColor.DarkGray);
-			m_Console.Canvas.DrawFrame(px-2, py-2, text.Length+4, 5, "-", "|", '+');
+			m_Console.Canvas.DrawFrame(px-2, py-2, text.Length+4, 5, "-", "|", '#');
 			m_Console.Canvas.SetColor(ConsoleColor.White, ConsoleColor.Black);
 		}
 
@@ -36,27 +36,31 @@ namespace ProceduralLevel.ConsoleApp.Example
 		{
 			return new Timer[]
 			{
-				new Timer(20, Update), new Timer(20, Render)
+				new Timer(20, UpdateInput), new Timer(20, Update), new Timer(20, Render)
 			};
 		}
 
-		protected void Render(double deltaTime)
-		{
-			m_Console.Canvas.DrawText(m_Timers[0].TickCount+":"+m_Timers[1].TickCount, 0, 0);
-			m_Console.Canvas.DrawText((m_Timers[0].TickCount % 2 == 0? "+": "-"), m_Offset, 1);
-			m_Console.Render();
-		}
-
-		protected void Update(double deltaTime)
+		private void UpdateInput(double deltaTime)
 		{
 			m_Input.Update(deltaTime);
-			m_Offset ++;
-			m_Offset = m_Offset % m_Console.Width;
 
 			if(m_Input.Get(ConsoleKey.Escape).IsDown())
 			{
 				Exit();
 			}
+		}
+
+		private void Update(double deltaTime)
+		{
+			m_Offset++;
+			m_Offset = m_Offset % m_Console.Width;
+		}
+
+		private void Render(double deltaTime)
+		{
+			m_Console.Canvas.DrawText(m_Timers[0].TickCount+":"+m_Timers[1].TickCount, 0, 0);
+			m_Console.Canvas.DrawText((m_Timers[0].TickCount % 2 == 0? "+": "-"), m_Offset, 1);
+			m_Console.Render();
 		}
 	}
 }
