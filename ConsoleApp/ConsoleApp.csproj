@@ -35,8 +35,10 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleApp\AConsoleApp.cs" />
     <Compile Include="ConsoleApp\Canvas.cs" />
     <Compile Include="ConsoleApp\Pixel.cs" />
+    <Compile Include="ConsoleApp\Clock.cs" />
     <Compile Include="ConsoleApp\Window.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

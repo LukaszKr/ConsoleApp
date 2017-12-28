@@ -52,11 +52,14 @@ namespace ProceduralLevel.ConsoleApp
 					{
 						textColor = pixel.TextColor;
 						bgColor = pixel.BGColor;
-						Console.SetCursorPosition(cx, cy);
-						cx = posX+x;
-						cy = posY+y;
-						Console.Write(builder);
-						builder.Clear();
+						if(builder.Length > 0)
+						{
+							Console.SetCursorPosition(cx, cy);
+							cx = posX+x;
+							cy = posY+y;
+							Console.Write(builder);
+							builder.Clear();
+						}
 
 						Console.ForegroundColor = textColor;
 						Console.BackgroundColor = bgColor;
@@ -66,9 +69,12 @@ namespace ProceduralLevel.ConsoleApp
 				}
 			}
 
-			Console.SetCursorPosition(cx, cy);
-			Console.Write(builder);
-			Console.SetCursorPosition(posX, posY);
+			if(builder.Length > 0)
+			{
+				Console.SetCursorPosition(cx, cy);
+				Console.Write(builder);
+				Console.SetCursorPosition(posX, posY);
+			}
 		}
 
 		public void Clear()
