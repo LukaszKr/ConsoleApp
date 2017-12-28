@@ -11,7 +11,7 @@ namespace ProceduralLevel.ConsoleApp
 
 		public readonly int FPS;
 		public bool Tick { get; private set; }
-		public int TickCount { get; private set; }
+		public long TickCount { get; private set; }
 
 		public Clock(int fps)
 		{
