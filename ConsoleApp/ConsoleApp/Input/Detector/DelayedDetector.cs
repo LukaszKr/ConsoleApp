@@ -6,23 +6,23 @@ namespace ProceduralLevel.ConsoleApp.Input
 	{
 		private bool m_Detected;
 
-		public float Progress { get { return Math.Max(Duration/Delay, 1f); } }
-		public float Delay { get; private set; }
+		public double Progress { get { return Math.Max(Duration/Delay, 1.0); } }
+		public double Delay { get; private set; }
 
-		public DelayedDetector(AInputProvider inputProvider, float delay)
+		public DelayedDetector(AInputProvider inputProvider, double delay)
 			: base(inputProvider)
 		{
 			Delay = delay;
 		}
 
 		#region Shortcut Constructors
-		public DelayedDetector(ConsoleKey key, float delay)
+		public DelayedDetector(ConsoleKey key, double delay)
 			: this(new KeyboardKeyProvider(key), delay)
 		{
 
 		}
 
-		public DelayedDetector(ConsoleModifiers modifiers, float delay)
+		public DelayedDetector(ConsoleModifiers modifiers, double delay)
 			: this(new KeyboardModifierProvider(modifiers), delay)
 		{
 

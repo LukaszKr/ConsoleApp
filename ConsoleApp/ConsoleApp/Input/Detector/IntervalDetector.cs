@@ -4,18 +4,18 @@ namespace ProceduralLevel.ConsoleApp.Input
 {
 	public class IntervalDetector: DurationDetector
 	{
-		private float[] m_Intervals;
-		private float m_PreviousTrigger;
-		private float m_NextTrigger;
+		private double[] m_Intervals;
+		private double m_PreviousTrigger;
+		private double m_NextTrigger;
 		private int m_IntervalIndex;
 
-		public float CurrentInterval { get; private set; }
-		public float Count { get; private set; }
-		public float Progress 
+		public double CurrentInterval { get; private set; }
+		public double Count { get; private set; }
+		public double Progress 
 		{ 
 			get 
-			{ 
-				float diff = m_NextTrigger-m_PreviousTrigger;
+			{
+				double diff = m_NextTrigger-m_PreviousTrigger;
 				if(diff > 0)
 				{
 					return (Duration-m_PreviousTrigger)/diff;
@@ -24,10 +24,10 @@ namespace ProceduralLevel.ConsoleApp.Input
 			}
 		}
 
-		public IntervalDetector(AInputProvider inputProvider, params float[] intervals)
+		public IntervalDetector(AInputProvider inputProvider, params double[] intervals)
 			: base(inputProvider)
 		{
-			m_Intervals = new float[intervals.Length];
+			m_Intervals = new double[intervals.Length];
 			for(int x = 0; x < m_Intervals.Length; ++x)
 			{
 				m_Intervals[x] = intervals[x];
@@ -35,13 +35,13 @@ namespace ProceduralLevel.ConsoleApp.Input
 		}
 
 		#region Shortcut Constructors
-		public IntervalDetector(ConsoleKey key, params float[] intervals)
+		public IntervalDetector(ConsoleKey key, params double[] intervals)
 			: this(new KeyboardKeyProvider(key), intervals)
 		{
 
 		}
 
-		public IntervalDetector(ConsoleModifiers modifiers, params float[] intervals)
+		public IntervalDetector(ConsoleModifiers modifiers, params double[] intervals)
 			: this(new KeyboardModifierProvider(modifiers), intervals)
 		{
 

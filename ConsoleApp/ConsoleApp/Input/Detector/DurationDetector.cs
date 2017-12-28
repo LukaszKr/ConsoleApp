@@ -4,7 +4,7 @@ namespace ProceduralLevel.ConsoleApp.Input
 {
 	public class DurationDetector: AInputDetector
 	{
-		public float Duration { get; private set; }
+		public double Duration { get; private set; }
 
 
 		public DurationDetector(AInputProvider inputProvider)

@@ -1,19 +1,19 @@
-﻿using System;
-
-namespace ProceduralLevel.ConsoleApp.Example
+﻿namespace ProceduralLevel.ConsoleApp.Example
 {
 	public class BasicExample: AConsoleApp
 	{
+		private InputManager m_Input;
 		private Window m_Console;
 		private int m_Offset = 0;
 
 		public BasicExample()
 			: base(new Clock(20), new Clock(20))
 		{
+			m_Input = new InputManager();
 			m_Console = new Window("BasicExample", 81, 21);
 		}
 
-		protected override void Render(double timeDelta)
+		protected override void Render(double deltaTime)
 		{
 			string text = "Hello World!";
 			int px = m_Console.Width/2-text.Length/2;
@@ -25,12 +25,13 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Render();
 		}
 
-		protected override void Update(double timeDelta)
+		protected override void Update(double deltaTime)
 		{
+			m_Input.Update(deltaTime);
 			m_Offset ++;
 			m_Offset = m_Offset % m_Console.Width;
 
-			if(Console.KeyAvailable)
+			if(m_Input.Keyboard.AnyKeyPressed)
 			{
 				Exit();
 			}

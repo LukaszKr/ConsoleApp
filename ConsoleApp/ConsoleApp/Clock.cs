@@ -12,7 +12,7 @@ namespace ProceduralLevel.ConsoleApp
 		public readonly int FPS;
 		public bool Tick { get; private set; }
 		public long TickCount { get; private set; }
-		public double TimeDelta { get; private set; }
+		public double DeltaTime { get; private set; }
 
 		public Clock(int fps)
 		{
@@ -35,7 +35,7 @@ namespace ProceduralLevel.ConsoleApp
 			{
 				Tick = true;
 				TickCount ++;
-				TimeDelta = m_FrameLength-m_Remaining;
+				DeltaTime = m_FrameLength-m_Remaining;
 				m_Remaining = m_FrameLength;
 			}
 			else

@@ -11,9 +11,9 @@ namespace ProceduralLevel.ConsoleApp.Input
 		public List<LayerDefinition> LayerDefinitions = new List<LayerDefinition>();
 
 		public abstract Type EnumIDType { get; }
-		public float DeltaTime { get; private set; }
+		public double DeltaTime { get; private set; }
 
-		public void Update(float deltaTime)
+		public void Update(double deltaTime)
 		{
 			DeltaTime = deltaTime;
 			UpdateDevices();
