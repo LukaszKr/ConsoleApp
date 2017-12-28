@@ -37,6 +37,27 @@
   <ItemGroup>
     <Compile Include="ConsoleApp\AConsoleApp.cs" />
     <Compile Include="ConsoleApp\Canvas.cs" />
+    <Compile Include="ConsoleApp\Input\AInputManager.cs" />
+    <Compile Include="ConsoleApp\Input\DetectorUpdater.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\ADetector.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\AInputDetector.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\DelayedDetector.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\DurationDetector.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\Group\AGroupDetector.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\Group\CombinationDetector.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\Group\CompositeDetector.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\IntervalDetector.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\Provider\AInputProvider.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\Provider\KeyboardKeyProvider.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\Provider\KeyboardModifierProvider.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\TriggerDetector.cs" />
+    <Compile Include="ConsoleApp\Input\Device\AInputDevice.cs" />
+    <Compile Include="ConsoleApp\Input\Device\KeyboardDevice.cs" />
+    <Compile Include="ConsoleApp\Input\Enum\EButtonState.cs" />
+    <Compile Include="ConsoleApp\Input\IInputReceiver.cs" />
+    <Compile Include="ConsoleApp\Input\InputManager.cs" />
+    <Compile Include="ConsoleApp\Input\Layer\InputLayer.cs" />
+    <Compile Include="ConsoleApp\Input\Layer\LayerDefinition.cs" />
     <Compile Include="ConsoleApp\Pixel.cs" />
     <Compile Include="ConsoleApp\Clock.cs" />
     <Compile Include="ConsoleApp\Window.cs" />
