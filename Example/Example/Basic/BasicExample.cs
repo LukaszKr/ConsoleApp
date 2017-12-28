@@ -14,11 +14,22 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Input = new InputManager();
 			m_Console = new Window("BasicExample", 81, 21);
 
+			for(int x = 0; x < m_Console.Width; ++x)
+			{
+				for(int y = 0; y < m_Console.Height; ++y)
+				{
+					m_Console.Canvas.Plot(new Pixel('.', ConsoleColor.DarkGray, ConsoleColor.Black), x, y);
+				}
+			}
+
 			string text = "Hello World!";
 			int px = m_Console.Width/2-text.Length/2;
 			int py = m_Console.Height/2;
+			m_Console.Canvas.Clear(px-1, py-1, text.Length+2, 3);
 			m_Console.Canvas.DrawText(text, px, py);
+			m_Console.Canvas.SetColor(ConsoleColor.White, ConsoleColor.DarkGray);
 			m_Console.Canvas.DrawFrame(px-2, py-2, text.Length+4, 5, "-", "|", '+');
+			m_Console.Canvas.SetColor(ConsoleColor.White, ConsoleColor.Black);
 		}
 
 		protected override Timer[] InitializeTimers()
