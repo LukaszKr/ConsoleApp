@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Diagnostics;
+using System.Threading;
 
 namespace ProceduralLevel.ConsoleApp
 {
@@ -8,8 +9,14 @@ namespace ProceduralLevel.ConsoleApp
 		protected Clock m_RenderClock;
 		private bool m_Exit;
 
+		private Stopwatch m_Watch;
+
+		public double DeltaTime { get; private set; }
+
 		public AConsoleApp(Clock logicClock, Clock renderClock)
 		{
+			m_Watch = new Stopwatch();
+
 			m_LogicClock = logicClock;
 			m_RenderClock = renderClock;
 		}
@@ -19,18 +26,26 @@ namespace ProceduralLevel.ConsoleApp
 			while(!m_Exit)
 			{
 				Thread.Sleep(1);
+				UpdateTime();
 
-				m_LogicClock.Update();
-				m_RenderClock.Update();
+				m_LogicClock.Update(DeltaTime);
+				m_RenderClock.Update(DeltaTime);
 				if(m_LogicClock.Tick)
 				{
-					Update(m_LogicClock.DeltaTime);
+					Update(DeltaTime);
 				}
 				if(m_RenderClock.Tick)
 				{
-					Render(m_RenderClock.DeltaTime);
+					Render(DeltaTime);
 				}
 			}
+		}
+
+		private void UpdateTime()
+		{
+			long ticks = m_Watch.ElapsedTicks;
+			DeltaTime = (double)ticks/Stopwatch.Frequency;
+			m_Watch.Restart();
 		}
 
 		protected void Exit()
