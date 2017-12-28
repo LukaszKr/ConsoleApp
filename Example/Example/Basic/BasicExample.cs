@@ -34,7 +34,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Offset ++;
 			m_Offset = m_Offset % m_Console.Width;
 
-			if(m_Input.Keyboard.Get(ConsoleKey.Escape).IsDown())
+			if(m_Input.Get(ConsoleKey.Escape).IsDown())
 			{
 				Exit();
 			}

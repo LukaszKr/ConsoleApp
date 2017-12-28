@@ -25,6 +25,18 @@ namespace ProceduralLevel.ConsoleApp.Input
 			Keyboard.UpdateState();
 		}
 
+		#region Shortcut
+		public EButtonState Get(ConsoleKey key)
+		{
+			return Keyboard.Get(key);
+		}
+
+		public EButtonState Get(ConsoleModifiers modifiers)
+		{
+			return Keyboard.Get(modifiers);
+		}
+		#endregion
+
 		#region Layers
 		private void UpdateActiveLayers()
 		{
