@@ -59,7 +59,7 @@
     <Compile Include="ConsoleApp\Input\Layer\InputLayer.cs" />
     <Compile Include="ConsoleApp\Input\Layer\LayerDefinition.cs" />
     <Compile Include="ConsoleApp\Pixel.cs" />
-    <Compile Include="ConsoleApp\Clock.cs" />
+    <Compile Include="ConsoleApp\Timer.cs" />
     <Compile Include="ConsoleApp\Window.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

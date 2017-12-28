@@ -1,20 +1,22 @@
 ﻿namespace ProceduralLevel.ConsoleApp
 {
-	public class Clock
+	public class Timer
 	{
-
 		private double m_Remaining;
 		private double m_FrameLength;
+		private TickCallback m_Callback;
 
 		public readonly int FPS;
-		public bool Tick { get; private set; }
 		public long TickCount { get; private set; }
 
-		public Clock(int fps)
+		public delegate void TickCallback(double deltaTime);
+
+		public Timer(int fps, TickCallback callback)
 		{
 			FPS = fps;
 			m_FrameLength = 1.0/FPS;
 			m_Remaining = m_FrameLength;
+			m_Callback = callback;
 		}
 
 		public void Update(double deltaTime)
@@ -22,14 +24,10 @@
 			m_Remaining -= deltaTime;
 			if(m_Remaining <= 0)
 			{
-				Tick = true;
 				TickCount ++;
-				deltaTime = m_FrameLength-m_Remaining;
+				double totalDeltaTime = m_FrameLength-m_Remaining;
 				m_Remaining = m_FrameLength;
-			}
-			else
-			{
-				Tick = false;
+				m_Callback(totalDeltaTime);
 			}
 		}
 	}

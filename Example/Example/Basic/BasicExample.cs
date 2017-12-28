@@ -10,7 +10,6 @@ namespace ProceduralLevel.ConsoleApp.Example
 		private int m_Offset = 0;
 
 		public BasicExample()
-			: base(new Clock(20), new Clock(20))
 		{
 			m_Input = new InputManager();
 			m_Console = new Window("BasicExample", 81, 21);
@@ -22,14 +21,22 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Canvas.DrawFrame(px-2, py-2, text.Length+4, 5, "-", "|", '+');
 		}
 
-		protected override void Render(double deltaTime)
+		protected override Timer[] InitializeTimers()
 		{
-			m_Console.Canvas.DrawText(m_LogicClock.TickCount+":"+m_RenderClock.TickCount, 0, 0);
-			m_Console.Canvas.DrawText((m_LogicClock.TickCount % 2 == 0? "+": "-"), m_Offset, 1);
+			return new Timer[]
+			{
+				new Timer(20, Update), new Timer(20, Render)
+			};
+		}
+
+		protected void Render(double deltaTime)
+		{
+			m_Console.Canvas.DrawText(m_Timers[0].TickCount+":"+m_Timers[1].TickCount, 0, 0);
+			m_Console.Canvas.DrawText((m_Timers[0].TickCount % 2 == 0? "+": "-"), m_Offset, 1);
 			m_Console.Render();
 		}
 
-		protected override void Update(double deltaTime)
+		protected void Update(double deltaTime)
 		{
 			m_Input.Update(deltaTime);
 			m_Offset ++;

@@ -5,21 +5,20 @@ namespace ProceduralLevel.ConsoleApp
 {
 	public abstract class AConsoleApp
 	{
-		protected Clock m_LogicClock;
-		protected Clock m_RenderClock;
+		protected Timer[] m_Timers;
 		private bool m_Exit;
 
 		private Stopwatch m_Watch;
 
 		public double DeltaTime { get; private set; }
 
-		public AConsoleApp(Clock logicClock, Clock renderClock)
+		public AConsoleApp()
 		{
 			m_Watch = new Stopwatch();
-
-			m_LogicClock = logicClock;
-			m_RenderClock = renderClock;
+			m_Timers = InitializeTimers();
 		}
+
+		protected abstract Timer[] InitializeTimers();
 
 		public void Run()
 		{
@@ -28,15 +27,9 @@ namespace ProceduralLevel.ConsoleApp
 				Thread.Sleep(1);
 				UpdateTime();
 
-				m_LogicClock.Update(DeltaTime);
-				m_RenderClock.Update(DeltaTime);
-				if(m_LogicClock.Tick)
+				for(int x = 0; x < m_Timers.Length; ++x)
 				{
-					Update(DeltaTime);
-				}
-				if(m_RenderClock.Tick)
-				{
-					Render(DeltaTime);
+					m_Timers[x].Update(DeltaTime);
 				}
 			}
 		}
@@ -52,8 +45,5 @@ namespace ProceduralLevel.ConsoleApp
 		{
 			m_Exit = true;
 		}
-
-		protected abstract void Render(double deltaTime);
-		protected abstract void Update(double deltaTime);
 	}
 }
