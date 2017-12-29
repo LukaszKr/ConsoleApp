@@ -55,7 +55,7 @@ namespace ProceduralLevel.ConsoleApp
 				Console.BackgroundColor = pixel.BGColor;
 				Console.Write(pixel.Value);
 				//this will prevent cursor from moving to next the right causing flickering
-				Console.MoveBufferArea(posX, posX, 1, 1, maxWidth-1, maxHeight-1);
+				Console.MoveBufferArea(posX, posY, 1, 1, maxWidth-1, maxHeight-1);
 			}
 
 			ConsoleColor textColor = Console.ForegroundColor;
