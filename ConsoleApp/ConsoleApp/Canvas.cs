@@ -156,6 +156,78 @@ namespace ProceduralLevel.ConsoleApp
 			}
 		}
 
+
+		//Bresenham line algorithm, adapted for c# from wikipedia
+		//https://pl.wikipedia.org/wiki/Algorytm_Bresenhama#Implementacja
+		public void DrawLine(char chr, int x1, int y1, int x2, int y2)
+		{
+			int d, dx, dy, ai, bi, xi, yi;
+			int x = x1, y = y1;
+			if(x1 < x2)
+			{
+				xi = 1;
+				dx = x2 - x1;
+			}
+			else
+			{
+				xi = -1;
+				dx = x1 - x2;
+			}
+			if(y1 < y2)
+			{
+				yi = 1;
+				dy = y2 - y1;
+			}
+			else
+			{
+				yi = -1;
+				dy = y1 - y2;
+			}
+			DrawChar(chr, x, y);
+			if(dx > dy)
+			{
+				ai = (dy - dx) * 2;
+				bi = dy * 2;
+				d = bi - dx;
+				while(x != x2)
+				{
+					if(d >= 0)
+					{
+						x += xi;
+						y += yi;
+						d += ai;
+					}
+					else
+					{
+						d += bi;
+						x += xi;
+					}
+					DrawChar(chr, x, y);
+				}
+			}
+			else
+			{
+				ai = (dx - dy) * 2;
+				bi = dx * 2;
+				d = bi - dy;
+				while(y != y2)
+				{
+					if(d >= 0)
+					{
+						x += xi;
+						y += yi;
+						d += ai;
+					}
+					else
+					{
+						d += bi;
+						y += yi;
+					}
+					DrawChar(chr, x, y);
+				}
+			}
+		}
+
 		public void DrawRect(string value, int posX, int posY, int width, int height)
 		{
 			for(int y = 0; y < height; y++)
