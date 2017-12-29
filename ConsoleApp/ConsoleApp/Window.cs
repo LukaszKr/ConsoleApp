@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProceduralLevel.ConsoleApp.Import;
+using System;
 
 namespace ProceduralLevel.ConsoleApp
 {
@@ -7,6 +8,8 @@ namespace ProceduralLevel.ConsoleApp
 		private Canvas m_Canvas;
 		private int m_Width;
 		private int m_Height;
+
+		private CharInfo[] m_Buffer;
 
 		public int Width { get { return m_Width; } }
 		public int Height { get { return m_Height; } }
@@ -17,7 +20,6 @@ namespace ProceduralLevel.ConsoleApp
 			//without fullscreen last line hides under taskbar
 			: this(title, Console.LargestWindowWidth, Console.LargestWindowHeight-1)
 		{
-
 		}
 
 		public Window(string title, int width, int height)
@@ -35,11 +37,29 @@ namespace ProceduralLevel.ConsoleApp
 			{
 				SetSize(m_Width, m_Height);
 			}
-			m_Canvas.Render(0, 0);
+			m_Canvas.Render(this, 0, 0);
+
+			bool result = ConsoleHelper.WriteOutput(m_Buffer, new Coord(Width, Height), new Coord(0, 0));
+			if(!result)
+			{
+				throw new Exception(ConsoleHelper.GetError());
+			}
+		}
+
+		public void Plot(Pixel pixel, int x, int y)
+		{
+			CharInfo info = new CharInfo()
+			{
+				Char = pixel.Value,
+				Attributes = CharInfoAttribute.FOREGROUND_BLUE | CharInfoAttribute.FOREGROUND_GREEN | CharInfoAttribute.FOREGROUND_RED
+			};
+			m_Buffer[y*Width+x] = info;
 		}
 
 		public void SetSize(int width, int height)
 		{
+			m_Buffer = new CharInfo[width*height];
+
 			m_Width = width;
 			m_Height = height;
 			Console.SetWindowSize(width, height);

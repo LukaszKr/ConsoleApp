@@ -12,8 +12,6 @@ namespace ProceduralLevel.ConsoleApp
 		public ConsoleColor TextColor = ConsoleColor.White;
 		public ConsoleColor BGColor = ConsoleColor.Black;
 
-		private char[] m_Buffer;
-
 		public Canvas(int width, int height)
 		{
 			Width = width;
@@ -29,86 +27,21 @@ namespace ProceduralLevel.ConsoleApp
 				}
 			}
 
-			m_Buffer = new char[width*height];
 		}
 
-		public void Render(int posX, int posY)
+		public void Render(Window window, int posX, int posY)
 		{
 			int maxWidth = Math.Min(Console.BufferWidth-posX, Width);
 			int maxHeight = Math.Min(Console.BufferHeight-posY, Height);
 			maxWidth = Math.Max(maxWidth, 0);
 			maxHeight = Math.Max(maxHeight, 0);
 
-			int brX = maxWidth+posX;
-			int brY = maxHeight+posY;
-
-			int bIndex = 0;
 			for(int y = 0; y < maxHeight; ++y)
 			{
 				for(int x = 0; x < maxWidth; ++x)
 				{
-					m_Buffer[bIndex] = FrameBuffer[x][y].Value;
-					++bIndex;
+					window.Plot(FrameBuffer[x][y], posX+x, posY+y);
 				}
-			}
-
-			//flicker happens when you write to bottom right pixel
-			//cursor moves to the right, which creates new row
-			bool willFlicker = (brX == Console.BufferWidth && brY == Console.BufferHeight);
-
-			ConsoleColor textColor = Console.ForegroundColor;
-			ConsoleColor bgColor = Console.BackgroundColor;
-			int prevIndex = 0;
-			int writeCount = 0;
-
-			Console.SetCursorPosition(posX, posY);
-
-			for(int y = 0; y < maxHeight; y++)
-			{
-				for(int x = 0; x < maxWidth; x++)
-				{
-					Pixel pixel = FrameBuffer[x][y];
-					bool skipPixel = (willFlicker && x == maxWidth-1 && y == maxHeight-1);
-					//skip last pixel as it's already there
-					if(pixel.TextColor != textColor || pixel.BGColor != bgColor || skipPixel)
-					{
-						textColor = pixel.TextColor;
-						bgColor = pixel.BGColor;
-						if(writeCount > 0)
-						{
-							Console.Write(m_Buffer, prevIndex, writeCount);
-							prevIndex += writeCount;
-							writeCount = 0;
-						}
-
-						Console.ForegroundColor = textColor;
-						Console.BackgroundColor = bgColor;
-					}
-
-					if(!skipPixel)
-					{
-						++writeCount;
-					}
-				}
-			}
-
-			if(writeCount > 0)
-			{
-				Console.Write(m_Buffer, prevIndex, writeCount);
-			}
-
-			//handle bottom-right pixel
-			if(willFlicker)
-			{
-				Pixel original = FrameBuffer[0][0];
-				Pixel pixel = FrameBuffer[maxWidth-1][maxHeight-1];
-				Console.SetCursorPosition(posX, posY);
-				Console.ForegroundColor = pixel.TextColor;
-				Console.BackgroundColor = pixel.BGColor;
-				Console.Write(pixel.Value);
-				//this will prevent cursor from moving to next the right causing flickering
-				Console.MoveBufferArea(posX, posY, 1, 1, maxWidth-1, maxHeight-1,
-					original.Value, original.TextColor, original.BGColor);
 			}
 		}
 
