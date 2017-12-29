@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="ConsoleApp\AConsoleApp.cs" />
     <Compile Include="ConsoleApp\Canvas.cs" />
+    <Compile Include="ConsoleApp\ConsoleHelper.cs" />
     <Compile Include="ConsoleApp\Input\AInputManager.cs" />
     <Compile Include="ConsoleApp\Input\DetectorUpdater.cs" />
     <Compile Include="ConsoleApp\Input\Detector\ADetector.cs" />
