@@ -13,6 +13,8 @@ namespace ProceduralLevel.ConsoleApp
 		public ConsoleColor TextColor = ConsoleColor.White;
 		public ConsoleColor BGColor = ConsoleColor.Black;
 
+		private StringBuilder m_StringBuilder;
+
 		public Canvas(int width, int height)
 		{
 			Width = width;
@@ -27,6 +29,8 @@ namespace ProceduralLevel.ConsoleApp
 					FrameBuffer[x][y] = new Pixel(' ', TextColor, BGColor);
 				}
 			}
+
+			m_StringBuilder = new StringBuilder(width*height);
 		}
 
 		public void Render(int posX, int posY)
@@ -35,8 +39,6 @@ namespace ProceduralLevel.ConsoleApp
 			int maxHeight = Math.Min(Console.BufferHeight-posY, Height);
 			maxWidth = Math.Max(maxWidth, 0);
 			maxHeight = Math.Max(maxHeight, 0);
-
-			StringBuilder builder = new StringBuilder(Width);
 
 			int cx = posX;
 			int cy = posY;
@@ -62,13 +64,13 @@ namespace ProceduralLevel.ConsoleApp
 					{
 						textColor = pixel.TextColor;
 						bgColor = pixel.BGColor;
-						if(builder.Length > 0)
+						if(m_StringBuilder.Length > 0)
 						{
 							Console.SetCursorPosition(cx, cy);
 							cx = posX+x;
 							cy = posY+y;
-							Console.Write(builder.ToString());
-							builder.Clear();
+							Console.Write(m_StringBuilder.ToString());
+							m_StringBuilder.Clear();
 						}
 
 						Console.ForegroundColor = textColor;
@@ -77,15 +79,15 @@ namespace ProceduralLevel.ConsoleApp
 
 					if(!skipPixel)
 					{
-						builder.Append(pixel.Value);
+						m_StringBuilder.Append(pixel.Value);
 					}
 				}
 			}
 
-			if(builder.Length > 0)
+			if(m_StringBuilder.Length > 0)
 			{
 				Console.SetCursorPosition(cx, cy);
-				Console.Write(builder.ToString());
+				Console.Write(m_StringBuilder.ToString());
 			}
 
 			//handle bottom-right pixel
