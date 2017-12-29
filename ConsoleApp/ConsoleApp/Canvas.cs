@@ -117,7 +117,7 @@ namespace ProceduralLevel.ConsoleApp
 
 		public bool Plot(Pixel pixel, int posX, int posY)
 		{
-			if(posX >= 0 && posX <= Width && posY >= 0 && posY <= Height)
+			if(posX >= 0 && posX < Width && posY >= 0 && posY < Height)
 			{
 				FrameBuffer[posX][posY] = pixel;
 				return true;
