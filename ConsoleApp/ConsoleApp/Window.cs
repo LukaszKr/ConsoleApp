@@ -25,7 +25,6 @@ namespace ProceduralLevel.ConsoleApp
 			Console.CursorVisible = false;
 			Console.Title = title;
 			m_Canvas = new Canvas(width, height);
-			Console.CursorVisible = false;
 		}
 
 		public void Render()
@@ -43,12 +42,13 @@ namespace ProceduralLevel.ConsoleApp
 			m_Width = width;
 			m_Height = height;
 			Console.SetWindowSize(width, height);
-			Console.BufferWidth = width;
-			Console.BufferHeight = height;
+			Console.SetBufferSize(width, height);
 			//somehow removes column that was occupied by vertical scrollbar
 			Console.SetCursorPosition(0, 0);
 			//same for horizontal
 			Console.SetWindowPosition(0, 0);
+			//resizing seems to restart this
+			Console.CursorVisible = false;
 		}
 
 		public void SetMaxSize()
