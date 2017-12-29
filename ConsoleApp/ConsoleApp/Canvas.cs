@@ -36,18 +36,41 @@ namespace ProceduralLevel.ConsoleApp
 			maxWidth = Math.Max(maxWidth, 0);
 			maxHeight = Math.Max(maxHeight, 0);
 
-			ConsoleColor textColor = 0;
-			ConsoleColor bgColor = 0;
-
 			StringBuilder builder = new StringBuilder(Width);
 
 			int cx = posX;
 			int cy = posY;
+
+			int brX = maxWidth+posX;
+			int brY = maxHeight+posY;
+
+			//flicker happens when you write to bottom right pixel
+			//cursor moves to the right, which creates new row
+			bool willFlicker = (brX == Console.BufferWidth && brY == Console.BufferHeight);
+			if(willFlicker)
+			{
+				Pixel pixel = FrameBuffer[maxWidth-1][maxHeight-1];
+				Console.SetCursorPosition(posX, posY);
+				Console.ForegroundColor = pixel.TextColor;
+				Console.BackgroundColor = pixel.BGColor;
+				Console.Write(pixel.Value);
+				//this will prevent cursor from moving to next the right causing flickering
+				Console.MoveBufferArea(posX, posX, 1, 1, maxWidth-1, maxHeight-1);
+			}
+
+			ConsoleColor textColor = Console.ForegroundColor;
+			ConsoleColor bgColor = Console.BackgroundColor;
+
 			for(int y = 0; y < maxHeight; y++)
 			{
 				for(int x = 0; x < maxWidth; x++)
 				{
 					Pixel pixel = FrameBuffer[x][y];
+					//skip last pixel as it's already there
+					if(willFlicker && x == maxWidth-1 && y == maxHeight-1)
+					{
+						continue;
+					}
 					if(pixel.TextColor != textColor || pixel.BGColor != bgColor)
 					{
 						textColor = pixel.TextColor;
@@ -57,7 +80,7 @@ namespace ProceduralLevel.ConsoleApp
 							Console.SetCursorPosition(cx, cy);
 							cx = posX+x;
 							cy = posY+y;
-							Console.Write(builder);
+							Console.Write(builder.ToString());
 							builder.Clear();
 						}
 
@@ -72,8 +95,7 @@ namespace ProceduralLevel.ConsoleApp
 			if(builder.Length > 0)
 			{
 				Console.SetCursorPosition(cx, cy);
-				Console.Write(builder);
-				Console.SetCursorPosition(posX, posY);
+				Console.Write(builder.ToString());
 			}
 		}
 
@@ -95,7 +117,7 @@ namespace ProceduralLevel.ConsoleApp
 
 		public bool Plot(Pixel pixel, int posX, int posY)
 		{
-			if(posX >= 0 && posX < Width && posY >= 0 && posY < Height)
+			if(posX >= 0 && posX <= Width && posY >= 0 && posY <= Height)
 			{
 				FrameBuffer[posX][posY] = pixel;
 				return true;

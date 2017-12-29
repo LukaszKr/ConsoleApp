@@ -14,7 +14,7 @@ namespace ProceduralLevel.ConsoleApp
 		public Canvas Canvas { get { return m_Canvas; } }
 
 		public Window(string title)
-			: this(title, Console.LargestWindowWidth, Console.LargestWindowHeight-1)
+			: this(title, Console.LargestWindowWidth, Console.LargestWindowHeight)
 		{
 
 		}
@@ -25,12 +25,13 @@ namespace ProceduralLevel.ConsoleApp
 			Console.CursorVisible = false;
 			Console.Title = title;
 			m_Canvas = new Canvas(width, height);
+			Console.CursorVisible = false;
 		}
 
 		public void Render()
 		{
 			if(Console.WindowWidth != m_Width || Console.WindowHeight != m_Height ||
-				Console.BufferWidth != m_Width || Console.BufferHeight != m_Height+1)
+				Console.BufferWidth != m_Width || Console.BufferHeight != m_Height)
 			{
 				SetSize(m_Width, m_Height);
 			}
@@ -43,13 +44,16 @@ namespace ProceduralLevel.ConsoleApp
 			m_Height = height;
 			Console.SetWindowSize(width, height);
 			Console.BufferWidth = width;
-			Console.BufferHeight = height+1;
+			Console.BufferHeight = height;
+			//somehow removes column that was occupied by vertical scrollbar
+			Console.SetCursorPosition(0, 0);
+			//same for horizontal
+			Console.SetWindowPosition(0, 0);
 		}
 
 		public void SetMaxSize()
 		{
-			Console.SetWindowPosition(0, 0);
-			SetSize(Console.LargestWindowWidth, Console.LargestWindowHeight-1);
+			SetSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 		}
 	}
 }
