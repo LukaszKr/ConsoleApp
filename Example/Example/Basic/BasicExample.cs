@@ -84,8 +84,9 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Canvas.DrawCircle('@', cx, cy, leng+1);
 			m_Console.Canvas.SetColor(ConsoleColor.White, ConsoleColor.Black);
 			
-
-			m_Console.Canvas.DrawText(tick+":"+m_Timers[1].TickCount, 0, 0);
+			double averageFPS = Math.Round(m_Timers[0].AverageFPS, 2);
+			double fps = Math.Round(m_Timers[0].FPS, 2);
+			m_Console.Canvas.DrawText(tick+":"+m_Timers[1].TickCount+", FPS: "+fps+", Average FPS: "+averageFPS, 0, 0);
 			m_Console.Canvas.DrawText((tick % 2 == 0? "+": "-"), m_Offset, 1);
 			m_Console.Render();
 		}
