@@ -66,16 +66,18 @@ namespace ProceduralLevel.ConsoleApp.Example
 
 			int cx = (int)(m_Console.Width*0.75f);
 			int cy = m_Console.Height/2;
-			int lines = 16;
-			int leng = 12;
-			double rotSteps = 48;
+			int lines = 20;
+			int leng = 14;
+			double rotSteps = 60;
 			double offset = (tick % rotSteps)/rotSteps;
 			double doublePI = Math.PI*2;
 			m_Console.Canvas.SetColor(ConsoleColor.DarkGreen, ConsoleColor.Black);
 			for(int x = 0; x < lines; ++x)
 			{
 				double rad = doublePI*(x/(double)lines)+doublePI*offset;
-				m_Console.Canvas.DrawLine('#', cx, cy, cx+(int)(Math.Cos(rad)*leng), cy+(int)(Math.Sin(rad)*leng));
+				int dx = cx+(int)Math.Floor((Math.Cos(rad)*leng));
+				int dy = cy+(int)Math.Floor((Math.Sin(rad)*leng));
+				m_Console.Canvas.DrawLine('#', cx, cy, dx, dy);
 			}
 
 			m_Console.Canvas.SetColor(ConsoleColor.White, ConsoleColor.Black);
