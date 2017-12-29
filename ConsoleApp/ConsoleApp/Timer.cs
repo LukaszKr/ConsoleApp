@@ -2,11 +2,11 @@
 {
 	public class Timer
 	{
-		private const double SAMPLE_WEIGHT = 0.1;
 
 		private double m_Remaining;
 		private double m_FrameLength;
 		private TickCallback m_Callback;
+		private double m_SampleWeight;
 
 		public readonly int TargetFPS;
 		public double FPS { get; private set; }
@@ -26,6 +26,7 @@
 			m_Callback = callback;
 
 			m_AverageTime = m_FrameLength;
+			m_SampleWeight = 1.0/targetFPS;
 		}
 
 		public void Update(double deltaTime)
@@ -35,7 +36,7 @@
 			{
 				TickCount ++;
 				double totalDeltaTime = m_FrameLength-m_Remaining;
-				m_AverageTime = (1-SAMPLE_WEIGHT)*m_AverageTime+totalDeltaTime*SAMPLE_WEIGHT;
+				m_AverageTime = (1-m_SampleWeight)*m_AverageTime+totalDeltaTime*m_SampleWeight;
 				AverageFPS = 1.0/m_AverageTime;
 				FPS = 1.0/totalDeltaTime;
 

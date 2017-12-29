@@ -21,7 +21,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 		{
 			return new Timer[]
 			{
-				new Timer(20, UpdateInput), new Timer(20, Update), new Timer(20, Render)
+				new Timer(60, Render), new Timer(10, UpdateInput), new Timer(10, Update)
 			};
 		}
 
@@ -38,20 +38,17 @@ namespace ProceduralLevel.ConsoleApp.Example
 		private void Update(double deltaTime)
 		{
 			m_Offset++;
-			m_Offset = m_Offset % m_Console.Width;
 		}
 
 		private void Render(double deltaTime)
 		{
-			long tick = m_Timers[0].TickCount;
-
 			//this could be done once as it doesn't change
 			//putting it here to test performance
 			for(int x = 0; x < m_Console.Width; ++x)
 			{
 				for(int y = 0; y < m_Console.Height; ++y)
 				{
-					m_Console.Canvas.Plot(new Pixel((tick % 2 == 0? '.': ','), ConsoleColor.DarkGray, ConsoleColor.Black), x, y);
+					m_Console.Canvas.Plot(new Pixel((m_Offset % 2 == 0? '.': ','), ConsoleColor.DarkGray, ConsoleColor.Black), x, y);
 				}
 			}
 
@@ -69,7 +66,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			int lines = 20;
 			int leng = 14;
 			double rotSteps = 60;
-			double offset = (tick % rotSteps)/rotSteps;
+			double offset = (m_Offset % rotSteps)/rotSteps;
 			double doublePI = Math.PI*2;
 			m_Console.Canvas.SetColor(ConsoleColor.DarkGreen, ConsoleColor.Black);
 			for(int x = 0; x < lines; ++x)
@@ -86,8 +83,8 @@ namespace ProceduralLevel.ConsoleApp.Example
 			
 			double averageFPS = Math.Round(m_Timers[0].AverageFPS, 2);
 			double fps = Math.Round(m_Timers[0].FPS, 2);
-			m_Console.Canvas.DrawText(tick+":"+m_Timers[1].TickCount+", FPS: "+fps+", Average FPS: "+averageFPS, 0, 0);
-			m_Console.Canvas.DrawText((tick % 2 == 0? "+": "-"), m_Offset, 1);
+			m_Console.Canvas.DrawText("FPS: "+fps+", Average FPS: "+averageFPS, 0, 0);
+			m_Console.Canvas.DrawText((m_Offset % 2 == 0? "+": "-"), m_Offset % m_Console.Width, 1);
 			m_Console.Render();
 		}
 	}
