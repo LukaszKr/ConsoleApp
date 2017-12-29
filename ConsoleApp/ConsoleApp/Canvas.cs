@@ -161,7 +161,7 @@ namespace ProceduralLevel.ConsoleApp
 		}
 
 
-		//Bresenham line algorithm, adapted for c# from wikipedia
+		//Bresenham line algorithm
 		//https://pl.wikipedia.org/wiki/Algorytm_Bresenhama#Implementacja
 		public void DrawLine(char chr, int x1, int y1, int x2, int y2)
 		{
@@ -229,6 +229,51 @@ namespace ProceduralLevel.ConsoleApp
 					}
 					DrawChar(chr, x, y);
 				}
+			}
+		}
+
+		public void DrawCircle(char chr, int centerX, int centerY, int radius)
+		{
+			DrawEllipse(chr, centerX, centerY, radius, radius);
+		}
+
+		//Bresenham ellipse
+		//https://sites.google.com/site/ruslancray/lab/projects/bresenhamscircleellipsedrawingalgorithm/bresenham-s-circle-ellipse-drawing-algorithm
+		public void DrawEllipse(char chr, int centerX, int centerY, int width, int height)
+		{
+			int a2 = width*width;
+			int b2 = height*height;
+			int fa2 = 4*a2, fb2 = 4*b2;
+			int x, y, sigma;
+
+			/* first half */
+			for(x = 0, y = height, sigma = 2*b2+a2*(1-2*height); b2*x <= a2*y; x++)
+			{
+				DrawChar(chr, centerX+x, centerY+y);
+				DrawChar(chr, centerX-x, centerY+y);
+				DrawChar(chr, centerX+x, centerY-y);
+				DrawChar(chr, centerX-x, centerY-y);
+				if(sigma >= 0)
+				{
+					sigma += fa2*(1-y);
+					y--;
+				}
+				sigma += b2*((4*x)+6);
+			}
+
+			/* second half */
+			for(x = width, y = 0, sigma = 2*a2+b2*(1-2*width); a2*y <= b2*x; y++)
+			{
+				DrawChar(chr, centerX+x, centerY+y);
+				DrawChar(chr, centerX-x, centerY+y);
+				DrawChar(chr, centerX+x, centerY-y);
+				DrawChar(chr, centerX-x, centerY-y);
+				if(sigma >= 0)
+				{
+					sigma += fb2*(1-x);
+					x--;
+				}
+				sigma += a2*((4*y)+6);
 			}
 		}
 

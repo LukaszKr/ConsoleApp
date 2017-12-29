@@ -75,11 +75,13 @@ namespace ProceduralLevel.ConsoleApp.Example
 			for(int x = 0; x < lines; ++x)
 			{
 				double rad = doublePI*(x/(double)lines)+doublePI*offset;
-				int dx = cx+(int)Math.Floor((Math.Cos(rad)*leng));
-				int dy = cy+(int)Math.Floor((Math.Sin(rad)*leng));
+				int dx = cx+(int)Math.Ceiling((Math.Cos(rad)*leng));
+				int dy = cy+(int)Math.Ceiling((Math.Sin(rad)*leng));
 				m_Console.Canvas.DrawLine('#', cx, cy, dx, dy);
 			}
 
+			m_Console.Canvas.SetColor(ConsoleColor.DarkMagenta, ConsoleColor.Black);
+			m_Console.Canvas.DrawCircle('@', cx, cy, leng+1);
 			m_Console.Canvas.SetColor(ConsoleColor.White, ConsoleColor.Black);
 			
 
