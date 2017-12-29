@@ -12,7 +12,8 @@ namespace ProceduralLevel.ConsoleApp.Example
 		public BasicExample()
 		{
 			m_Input = new InputManager();
-			m_Console = new Window("BasicExample", 81, 36);
+			//m_Console = new Window("BasicExample", 81, 36);
+			m_Console = new Window("BasicExample");
 			m_Console.SetWindowPosition(0, 0);
 		}
 

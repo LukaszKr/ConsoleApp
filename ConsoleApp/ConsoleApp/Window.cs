@@ -15,7 +15,8 @@ namespace ProceduralLevel.ConsoleApp
 		public Canvas Canvas { get { return m_Canvas; } }
 
 		public Window(string title)
-			: this(title, Console.LargestWindowWidth, Console.LargestWindowHeight)
+			//without fullscreen last line hides under taskbar
+			: this(title, Console.LargestWindowWidth, Console.LargestWindowHeight-1)
 		{
 
 		}
@@ -54,7 +55,7 @@ namespace ProceduralLevel.ConsoleApp
 
 		public void SetMaxSize()
 		{
-			SetSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+			SetSize(Console.LargestWindowWidth, Console.LargestWindowHeight-1);
 		}
 
 		public void SetWindowPosition(int px, int py)
