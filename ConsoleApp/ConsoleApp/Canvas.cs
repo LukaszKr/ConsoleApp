@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 
 namespace ProceduralLevel.ConsoleApp
 {
@@ -13,7 +12,7 @@ namespace ProceduralLevel.ConsoleApp
 		public ConsoleColor TextColor = ConsoleColor.White;
 		public ConsoleColor BGColor = ConsoleColor.Black;
 
-		private StringBuilder m_StringBuilder;
+		private char[] m_Buffer;
 
 		public Canvas(int width, int height)
 		{
@@ -30,7 +29,7 @@ namespace ProceduralLevel.ConsoleApp
 				}
 			}
 
-			m_StringBuilder = new StringBuilder(width*height);
+			m_Buffer = new char[width*height];
 		}
 
 		public void Render(int posX, int posY)
@@ -40,11 +39,18 @@ namespace ProceduralLevel.ConsoleApp
 			maxWidth = Math.Max(maxWidth, 0);
 			maxHeight = Math.Max(maxHeight, 0);
 
-			int cx = posX;
-			int cy = posY;
-
 			int brX = maxWidth+posX;
 			int brY = maxHeight+posY;
+
+			int bIndex = 0;
+			for(int y = 0; y < maxHeight; ++y)
+			{
+				for(int x = 0; x < maxWidth; ++x)
+				{
+					m_Buffer[bIndex] = FrameBuffer[x][y].Value;
+					++bIndex;
+				}
+			}
 
 			//flicker happens when you write to bottom right pixel
 			//cursor moves to the right, which creates new row
@@ -52,6 +58,10 @@ namespace ProceduralLevel.ConsoleApp
 
 			ConsoleColor textColor = Console.ForegroundColor;
 			ConsoleColor bgColor = Console.BackgroundColor;
+			int prevIndex = 0;
+			int writeCount = 0;
+
+			Console.SetCursorPosition(posX, posY);
 
 			for(int y = 0; y < maxHeight; y++)
 			{
@@ -64,13 +74,11 @@ namespace ProceduralLevel.ConsoleApp
 					{
 						textColor = pixel.TextColor;
 						bgColor = pixel.BGColor;
-						if(m_StringBuilder.Length > 0)
+						if(writeCount > 0)
 						{
-							Console.SetCursorPosition(cx, cy);
-							cx = posX+x;
-							cy = posY+y;
-							Console.Write(m_StringBuilder.ToString());
-							m_StringBuilder.Clear();
+							Console.Write(m_Buffer, prevIndex, writeCount);
+							prevIndex += writeCount;
+							writeCount = 0;
 						}
 
 						Console.ForegroundColor = textColor;
@@ -79,15 +87,14 @@ namespace ProceduralLevel.ConsoleApp
 
 					if(!skipPixel)
 					{
-						m_StringBuilder.Append(pixel.Value);
+						++writeCount;
 					}
 				}
 			}
 
-			if(m_StringBuilder.Length > 0)
+			if(writeCount > 0)
 			{
-				Console.SetCursorPosition(cx, cy);
-				Console.Write(m_StringBuilder.ToString());
+				Console.Write(m_Buffer, prevIndex, writeCount);
 			}
 
 			//handle bottom-right pixel
