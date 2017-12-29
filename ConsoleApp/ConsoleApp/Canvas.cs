@@ -47,16 +47,6 @@ namespace ProceduralLevel.ConsoleApp
 			//flicker happens when you write to bottom right pixel
 			//cursor moves to the right, which creates new row
 			bool willFlicker = (brX == Console.BufferWidth && brY == Console.BufferHeight);
-			if(willFlicker)
-			{
-				Pixel pixel = FrameBuffer[maxWidth-1][maxHeight-1];
-				Console.SetCursorPosition(posX, posY);
-				Console.ForegroundColor = pixel.TextColor;
-				Console.BackgroundColor = pixel.BGColor;
-				Console.Write(pixel.Value);
-				//this will prevent cursor from moving to next the right causing flickering
-				Console.MoveBufferArea(posX, posY, 1, 1, maxWidth-1, maxHeight-1);
-			}
 
 			ConsoleColor textColor = Console.ForegroundColor;
 			ConsoleColor bgColor = Console.BackgroundColor;
@@ -66,12 +56,9 @@ namespace ProceduralLevel.ConsoleApp
 				for(int x = 0; x < maxWidth; x++)
 				{
 					Pixel pixel = FrameBuffer[x][y];
+					bool skipPixel = (willFlicker && x == maxWidth-1 && y == maxHeight-1);
 					//skip last pixel as it's already there
-					if(willFlicker && x == maxWidth-1 && y == maxHeight-1)
-					{
-						continue;
-					}
-					if(pixel.TextColor != textColor || pixel.BGColor != bgColor)
+					if(pixel.TextColor != textColor || pixel.BGColor != bgColor || skipPixel)
 					{
 						textColor = pixel.TextColor;
 						bgColor = pixel.BGColor;
@@ -88,7 +75,10 @@ namespace ProceduralLevel.ConsoleApp
 						Console.BackgroundColor = bgColor;
 					}
 
-					builder.Append(pixel.Value);
+					if(!skipPixel)
+					{
+						builder.Append(pixel.Value);
+					}
 				}
 			}
 
@@ -96,6 +86,20 @@ namespace ProceduralLevel.ConsoleApp
 			{
 				Console.SetCursorPosition(cx, cy);
 				Console.Write(builder.ToString());
+			}
+
+			//handle bottom-right pixel
+			if(willFlicker)
+			{
+				Pixel original = FrameBuffer[0][0];
+				Pixel pixel = FrameBuffer[maxWidth-1][maxHeight-1];
+				Console.SetCursorPosition(posX, posY);
+				Console.ForegroundColor = pixel.TextColor;
+				Console.BackgroundColor = pixel.BGColor;
+				Console.Write(pixel.Value);
+				//this will prevent cursor from moving to next the right causing flickering
+				Console.MoveBufferArea(posX, posY, 1, 1, maxWidth-1, maxHeight-1,
+					original.Value, original.TextColor, original.BGColor);
 			}
 		}
 
