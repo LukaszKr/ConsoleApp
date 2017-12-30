@@ -41,7 +41,7 @@ namespace ProceduralLevel.ConsoleApp
 
 		[DllImport("user32")]
 		private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,
-			int x, int y, int pixelWidth, int pixelHeight, int flags);
+			Int32 x, Int32 y, Int32 pixelWidth, Int32 pixelHeight, UInt32 flags);
 
 		[DllImport("kernel32.dll", SetLastError = true)]
 		private static extern IntPtr GetConsoleWindow();
@@ -51,7 +51,7 @@ namespace ProceduralLevel.ConsoleApp
 			Coord bufferSize, Coord bufferCoord, ref SmallRect writeRegion);
 
 		[DllImport("kernel32.dll", SetLastError = true)]
-		private static extern IntPtr GetStdHandle(int stdHandler);
+		private static extern IntPtr GetStdHandle(Int32 stdHandler);
 
 		[DllImport("kernel32.dll")]
 		private static extern uint GetLastError();
