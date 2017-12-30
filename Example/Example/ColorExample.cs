@@ -5,7 +5,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 {
 	public class ColorExample: AConsoleApp
 	{
-		private const int GRID_X = 4;
+		private const int GRID_X = 6;
 		private const int GRID_Y = 2;
 
 		private InputManager m_Input;
