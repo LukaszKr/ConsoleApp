@@ -32,6 +32,15 @@ namespace ProceduralLevel.ConsoleApp
 			return errorCode.ToString();
 		}
 
+		public static bool CheckError(bool success)
+		{
+			if(!success)
+			{
+				throw new Exception(GetError());
+			}
+			return success;
+		}
+
 		#region DLL Imports
 		private const int SWP_NOSIZE = 0x0001; //ignore pixewidth/height params
 		private const int SWP_NOZORDER = 0x4; //don't change order of window

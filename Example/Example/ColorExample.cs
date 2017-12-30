@@ -13,8 +13,6 @@ namespace ProceduralLevel.ConsoleApp.Example
 
 		public ColorExample()
 		{
-			ConsoleHelper.SetWindowPosition(0, 0);
-
 			m_Input = new InputManager();
 			m_Console = new Window("ColorExample", 16*GRID_X, 16*GRID_Y+1);
 		}

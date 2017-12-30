@@ -39,11 +39,7 @@ namespace ProceduralLevel.ConsoleApp
 			}
 			m_Canvas.Render(this, 0, 0);
 
-			bool result = ConsoleHelper.WriteOutput(m_Buffer, new Coord(Width, Height), new Coord(0, 0));
-			if(!result)
-			{
-				throw new Exception(ConsoleHelper.GetError());
-			}
+			ConsoleHelper.WriteOutput(m_Buffer, new Coord(Width, Height), new Coord(0, 0));
 		}
 
 		public void Plot(Pixel pixel, int x, int y)
