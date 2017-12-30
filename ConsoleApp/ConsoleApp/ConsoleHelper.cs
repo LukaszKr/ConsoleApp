@@ -12,11 +12,11 @@ namespace ProceduralLevel.ConsoleApp
 			SetWindowPos(handle, IntPtr.Zero, px, py, 0, 0, SWP_NOACTIVATE | SWP_NOACTIVATE | SWP_NOSIZE);
 		}
 
-		public static bool WriteOutput(CharInfo[] chars, Coord bufferSize, Coord bufferCoord)
+		public static bool WriteOutput(Pixel[] pixels, Coord bufferSize, Coord bufferCoord)
 		{
 			SmallRect writeRegion = new SmallRect(bufferCoord.X, bufferCoord.Y, bufferSize.X, bufferSize.Y);
 			IntPtr handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			return WriteConsoleOutput(handle, chars, bufferSize, bufferCoord, ref writeRegion);
+			return WriteConsoleOutput(handle, pixels, bufferSize, bufferCoord, ref writeRegion);
 		}
 
 		public static string GetError()
@@ -40,7 +40,7 @@ namespace ProceduralLevel.ConsoleApp
 		private static extern IntPtr GetConsoleWindow();
 
 		[DllImport("kernel32.dll", SetLastError = true)]
-		private static extern bool WriteConsoleOutput(IntPtr hWnd, CharInfo[] chars, 
+		private static extern bool WriteConsoleOutput(IntPtr hWnd, Pixel[] pixels, 
 			Coord bufferSize, Coord bufferCoord, ref SmallRect writeRegion);
 
 		[DllImport("kernel32.dll", SetLastError = true)]

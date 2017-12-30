@@ -37,6 +37,7 @@
     <Compile Include="ConsoleApp\AConsoleApp.cs" />
     <Compile Include="ConsoleApp\Canvas.cs" />
     <Compile Include="ConsoleApp\ConsoleHelper.cs" />
+    <Compile Include="ConsoleApp\Enum\EColor.cs" />
     <Compile Include="ConsoleApp\Import\CharInfo.cs" />
     <Compile Include="ConsoleApp\Import\CharInfoAttribute.cs" />
     <Compile Include="ConsoleApp\Import\Coord.cs" />
@@ -62,7 +63,7 @@
     <Compile Include="ConsoleApp\Input\InputManager.cs" />
     <Compile Include="ConsoleApp\Input\Layer\InputLayer.cs" />
     <Compile Include="ConsoleApp\Input\Layer\LayerDefinition.cs" />
-    <Compile Include="ConsoleApp\Pixel.cs" />
+    <Compile Include="ConsoleApp\Struct\Pixel.cs" />
     <Compile Include="ConsoleApp\Timer.cs" />
     <Compile Include="ConsoleApp\Window.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

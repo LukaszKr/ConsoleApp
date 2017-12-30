@@ -9,8 +9,8 @@ namespace ProceduralLevel.ConsoleApp
 		public readonly int Width;
 		public readonly int Height;
 
-		public ConsoleColor TextColor = ConsoleColor.White;
-		public ConsoleColor BGColor = ConsoleColor.Black;
+		public EColor TextColor = EColor.White;
+		public EColor BGColor = EColor.Black;
 
 		public Canvas(int width, int height)
 		{
@@ -56,7 +56,7 @@ namespace ProceduralLevel.ConsoleApp
 			{
 				for(int y = 0; y < height; y++)
 				{
-					Plot(new Pixel(' ', ConsoleColor.White, ConsoleColor.Black), posX+x, posY+y);
+					Plot(new Pixel(' ', EColor.White, EColor.Black), posX+x, posY+y);
 				}
 			}
 		}
@@ -77,7 +77,7 @@ namespace ProceduralLevel.ConsoleApp
 			return Plot(new Pixel(chr, TextColor, BGColor), posX, posY);
 		}
 
-		public void SetColor(ConsoleColor textColor, ConsoleColor bgColor)
+		public void SetColor(EColor textColor, EColor bgColor)
 		{
 			TextColor = textColor;
 			BGColor = bgColor;

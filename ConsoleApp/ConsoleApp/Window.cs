@@ -9,7 +9,7 @@ namespace ProceduralLevel.ConsoleApp
 		private int m_Width;
 		private int m_Height;
 
-		private CharInfo[] m_Buffer;
+		private Pixel[] m_Buffer;
 
 		public int Width { get { return m_Width; } }
 		public int Height { get { return m_Height; } }
@@ -48,17 +48,12 @@ namespace ProceduralLevel.ConsoleApp
 
 		public void Plot(Pixel pixel, int x, int y)
 		{
-			CharInfo info = new CharInfo()
-			{
-				Char = pixel.Value,
-				Attributes = CharInfoAttribute.FOREGROUND_BLUE | CharInfoAttribute.FOREGROUND_GREEN | CharInfoAttribute.FOREGROUND_RED
-			};
-			m_Buffer[y*Width+x] = info;
+			m_Buffer[y*Width+x] = pixel;
 		}
 
 		public void SetSize(int width, int height)
 		{
-			m_Buffer = new CharInfo[width*height];
+			m_Buffer = new Pixel[width*height];
 
 			m_Width = width;
 			m_Height = height;
