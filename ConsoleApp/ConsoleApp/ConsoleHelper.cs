@@ -6,17 +6,24 @@ namespace ProceduralLevel.ConsoleApp
 {
 	public static class ConsoleHelper
 	{
+		private static readonly IntPtr m_ConsoleHandle;
+		private static readonly IntPtr m_StdHandle;
+
+		static ConsoleHelper()
+		{
+			m_ConsoleHandle = GetConsoleWindow();
+			m_StdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+		}
+
 		public static void SetWindowPosition(int px, int py)
 		{
-			IntPtr handle = GetConsoleWindow();
-			SetWindowPos(handle, IntPtr.Zero, px, py, 0, 0, SWP_NOACTIVATE | SWP_NOACTIVATE | SWP_NOSIZE);
+			SetWindowPos(m_ConsoleHandle, IntPtr.Zero, px, py, 0, 0, SWP_NOACTIVATE | SWP_NOACTIVATE | SWP_NOSIZE);
 		}
 
 		public static bool WriteOutput(Pixel[] pixels, Coord bufferSize, Coord bufferCoord)
 		{
 			SmallRect writeRegion = new SmallRect(bufferCoord.X, bufferCoord.Y, bufferSize.X, bufferSize.Y);
-			IntPtr handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			return WriteConsoleOutput(handle, pixels, bufferSize, bufferCoord, ref writeRegion);
+			return WriteConsoleOutput(m_StdHandle, pixels, bufferSize, bufferCoord, ref writeRegion);
 		}
 
 		public static string GetError()
