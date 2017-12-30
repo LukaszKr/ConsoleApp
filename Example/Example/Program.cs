@@ -6,8 +6,8 @@
 		static void Main(string[] args)
 		{
 			AConsoleApp app;
-			//app = new BasicExample();
-			app = new ColorExample();
+			app = new BasicExample();
+			//app = new ColorExample();
 			app.Run();
 		}
 	}

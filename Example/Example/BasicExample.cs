@@ -48,7 +48,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			{
 				for(int y = 0; y < m_Console.Height; ++y)
 				{
-					m_Console.Canvas.Plot(new Pixel((m_Offset % 2 == 0? '.': ','), EColor.Grey, EColor.Black), x, y);
+					m_Console.Canvas.Plot(new Pixel((m_Offset % 2 == 0? '.': ','), EColor.DarkGray, EColor.Black), x, y);
 				}
 			}
 
@@ -57,7 +57,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			int py = m_Console.Height/2;
 			m_Console.Canvas.Clear(px-1, py-1, text.Length+2, 3);
 			m_Console.Canvas.DrawText(text, px, py);
-			m_Console.Canvas.SetColor(EColor.White, EColor.Grey);
+			m_Console.Canvas.SetColor(EColor.White, EColor.Gray);
 			m_Console.Canvas.DrawFrame(px-2, py-2, text.Length+4, 5, "-", "|", '#');
 
 
