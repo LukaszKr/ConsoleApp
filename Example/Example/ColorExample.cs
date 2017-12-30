@@ -29,8 +29,8 @@ namespace ProceduralLevel.ConsoleApp.Example
 
 		private void Render(double deltaTime)
 		{
-			double averageFPS = Math.Round(m_Timers[0].AverageFPS, 2);
-			double fps = Math.Round(m_Timers[0].FPS, 2);
+			double averageFPS = Math.Round(m_Timers[0].AverageFPS);
+			double fps = Math.Round(m_Timers[0].FPS);
 			m_Console.Canvas.SetColor(EColor.White, EColor.Black);
 			m_Console.Canvas.DrawText("FPS: "+fps+", Average FPS: "+averageFPS, 0, 0);
 
