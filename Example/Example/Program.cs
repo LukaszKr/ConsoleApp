@@ -5,8 +5,10 @@
 
 		static void Main(string[] args)
 		{
-			BasicExample example = new BasicExample();
-			example.Run();
+			AConsoleApp app;
+			//app = new BasicExample();
+			app = new ColorExample();
+			app.Run();
 		}
 	}
 }
