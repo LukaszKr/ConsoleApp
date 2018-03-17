@@ -48,7 +48,7 @@ namespace ProceduralLevel.ConsoleApp
 		public static bool SetFontFace(string name)
 		{
 			FontInfo info = GetFontInfo();
-			info.SetName(name);
+			info.SetFace(name);
 			return SetFont(info);
 		}
 

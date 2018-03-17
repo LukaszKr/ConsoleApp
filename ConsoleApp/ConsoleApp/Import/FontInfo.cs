@@ -26,7 +26,12 @@ namespace ProceduralLevel.ConsoleApp.Import
 			SizeInBytes = (uint)Marshal.SizeOf<FontInfo>();
 		}
 
-		public unsafe void SetName(string fontName)
+		public void SetFace(EFontFace face)
+		{
+			SetFace(face.ToFaceName());
+		}
+
+		public unsafe void SetFace(string fontName)
 		{
 			fixed (char* name = FaceName)
 			{
