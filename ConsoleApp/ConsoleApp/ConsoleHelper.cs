@@ -26,6 +26,45 @@ namespace ProceduralLevel.ConsoleApp
 			return WriteConsoleOutput(m_StdHandle, pixels, bufferSize, bufferCoord, ref writeRegion);
 		}
 
+		public static bool SetFontSize(EFontSize size)
+		{
+			FontInfo info = GetFontInfo();
+			info.FontSize = new Coord(0, (int)size);
+			return SetFont(info);
+		}
+
+		public static bool SetFontWeight(EFontWeight weight)
+		{
+			FontInfo info = GetFontInfo();
+			info.FontWeight = weight;
+			return SetFont(info);
+		}
+
+		public static bool SetFontFace(EFontFace face)
+		{
+			return SetFontFace(face.ToFaceName());
+		}
+
+		public static bool SetFontFace(string name)
+		{
+			FontInfo info = GetFontInfo();
+			info.SetName(name);
+			return SetFont(info);
+		}
+
+		public static bool SetFont(FontInfo info)
+		{
+			return SetCurrentConsoleFontEx(m_StdHandle, false, ref info);
+		}
+
+		public static FontInfo GetFontInfo()
+		{
+			FontInfo info = new FontInfo();
+			info.Init();
+			CheckError(GetCurrentConsoleFontEx(m_StdHandle, false, ref info));
+			return info;
+		}
+
 		public static string GetError()
 		{
 			uint errorCode = GetLastError();
@@ -61,6 +100,12 @@ namespace ProceduralLevel.ConsoleApp
 
 		[DllImport("kernel32.dll", SetLastError = true)]
 		private static extern IntPtr GetStdHandle(Int32 stdHandler);
+
+		[DllImport("kernel32.dll", SetLastError = true)]
+		private static extern bool SetCurrentConsoleFontEx(IntPtr consoleOutput, bool maximumWindow, ref FontInfo fontInfo);
+
+		[DllImport("kernel32.dll", SetLastError = true)]
+		private static extern bool GetCurrentConsoleFontEx(IntPtr consoleOutput, bool maximumWindow, ref FontInfo fontInfo);
 
 		[DllImport("kernel32.dll")]
 		private static extern uint GetLastError();

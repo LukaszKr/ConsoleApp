@@ -11,6 +11,9 @@ namespace ProceduralLevel.ConsoleApp.Example
 
 		public BasicExample()
 		{
+			ConsoleHelper.SetFontSize(EFontSize.Size_16);
+			ConsoleHelper.SetFontFace(EFontFace.Consolas);
+
 			m_Input = new InputManager();
 			m_Console = new Window("BasicExample");
 		}
