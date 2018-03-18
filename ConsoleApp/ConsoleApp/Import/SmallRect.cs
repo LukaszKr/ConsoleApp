@@ -1,14 +1,15 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace ProceduralLevel.ConsoleApp
 {
 	[StructLayout(LayoutKind.Sequential)]
 	public struct SmallRect
 	{
-		public short Left;
-		public short Top;
-		public short Right;
-		public short Bottom;
+		public Int16 Left;
+		public Int16 Top;
+		public Int16 Right;
+		public Int16 Bottom;
 
 		public SmallRect(short left, short top, short right, short bottom)
 		{

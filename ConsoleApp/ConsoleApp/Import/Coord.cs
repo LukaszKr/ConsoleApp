@@ -1,12 +1,13 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace ProceduralLevel.ConsoleApp
 {
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Coord
 	{
-		public short X;
-		public short Y;
+		public Int16 X;
+		public Int16 Y;
 
 		public Coord(short x, short y)
 		{

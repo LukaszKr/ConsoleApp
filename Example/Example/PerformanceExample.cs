@@ -42,9 +42,9 @@ namespace ProceduralLevel.ConsoleApp.Example
 				{ 
 					//console doesn't like changing colors between cells - so this is a worst case scenario
 					//bottleneck here is pInvoke to native code which might be still improved
-					char c = (char)('A'+m_Random.Next(0, 20));
-					EColor textColor = (EColor)m_Random.Next(0, 16);
-					EColor bgColor = (EColor)m_Random.Next(0, 16);
+					char c = (char)('A'+(x % 23));
+					EColor textColor = (EColor)(x % 16);
+					EColor bgColor = (EColor)((x+y) % 16);
 					canvas.Plot(new Pixel(c, textColor, bgColor), x, y);
 				}
 			}

@@ -2,9 +2,8 @@
 {
 	public class Timer
 	{
-
 		private double m_Remaining;
-		private double m_FrameLength;
+		private double m_FrameTime;
 		private TickCallback m_Callback;
 		private double m_SampleWeight;
 
@@ -20,26 +19,25 @@
 		public Timer(int targetFPS, TickCallback callback)
 		{
 			TargetFPS = targetFPS;
-			m_FrameLength = 1.0/TargetFPS;
-			m_Remaining = m_FrameLength;
+			m_FrameTime = 1.0/TargetFPS;
+			m_Remaining = m_FrameTime;
 			m_Callback = callback;
 
 			AverageFPS = 0f;
-			m_SampleWeight = 0.1f;
+			m_SampleWeight = m_FrameTime;
 		}
 
 		public void Update(double deltaTime)
 		{
 			m_Remaining -= deltaTime;
-			if(m_Remaining <= 0)
+			if(m_Remaining <= 0f) //some issue here, when on low FPS it's spiking randomly causing Average FPS to go a bit crazy
 			{
 				TickCount ++;
-				double totalDeltaTime = m_FrameLength-m_Remaining;
-				FPS = 1.0/totalDeltaTime;
+				double timePassed = m_FrameTime-m_Remaining;
+				FPS = 1.0/timePassed;
 				AverageFPS = (1-m_SampleWeight)*AverageFPS+FPS*m_SampleWeight;
-
-				m_Remaining = m_FrameLength;
-				m_Callback(totalDeltaTime);
+				m_Remaining = m_FrameTime;
+				m_Callback(timePassed);
 			}
 		}
 	}

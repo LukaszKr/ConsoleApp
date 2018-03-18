@@ -77,6 +77,11 @@ namespace ProceduralLevel.ConsoleApp
 			return Plot(new Pixel(chr, TextColor, BGColor), posX, posY);
 		}
 
+		public bool DrawChar(SByte chr, int posX, int posY)
+		{
+			return Plot(new Pixel(chr, TextColor, BGColor), posX, posY);
+		}
+
 		public void SetColor(EColor textColor, EColor bgColor)
 		{
 			TextColor = textColor;

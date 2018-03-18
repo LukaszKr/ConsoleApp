@@ -22,13 +22,13 @@ namespace ProceduralLevel.ConsoleApp
 		public static bool WriteOutput(Pixel[] pixels, Coord bufferSize, Coord bufferCoord)
 		{
 			SmallRect writeRegion = new SmallRect(bufferCoord.X, bufferCoord.Y, bufferSize.X, bufferSize.Y);
-			return WriteConsoleOutput(m_StdHandle, pixels, bufferSize, bufferCoord, ref writeRegion);
+			return WriteConsoleOutputW(m_StdHandle, pixels, bufferSize, bufferCoord, ref writeRegion);
 		}
 
 		public static ScreenBufferInfo GetScreenBufferInfo()
 		{
 			ScreenBufferInfo bufferInfo = new ScreenBufferInfo();
-			CheckError(GetConsoleScreenBufferInfo(m_StdHandle, ref bufferInfo));
+			GetConsoleScreenBufferInfo(m_StdHandle, ref bufferInfo);
 			return bufferInfo;
 		}
 
@@ -76,7 +76,7 @@ namespace ProceduralLevel.ConsoleApp
 		{
 			FontInfo info = new FontInfo();
 			info.Init();
-			CheckError(GetCurrentConsoleFontEx(m_StdHandle, false, ref info));
+			GetCurrentConsoleFontEx(m_StdHandle, false, ref info);
 			return info;
 		}
 		#endregion
@@ -105,30 +105,31 @@ namespace ProceduralLevel.ConsoleApp
 
 		private const int STD_OUTPUT_HANDLE = -11;
 
-		[DllImport("user32")]
+		[DllImport("user32", ExactSpelling = true)]
 		private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,
 			Int32 x, Int32 y, Int32 pixelWidth, Int32 pixelHeight, UInt32 flags);
 
-		[DllImport("kernel32.dll", SetLastError = true)]
+		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
 		private static extern IntPtr GetConsoleWindow();
 
-		[DllImport("kernel32.dll", SetLastError = true)]
-		private static extern bool WriteConsoleOutput(IntPtr hWnd, Pixel[] pixels, 
-			Coord bufferSize, Coord bufferCoord, ref SmallRect writeRegion);
+		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+		private static extern bool WriteConsoleOutputW([In] IntPtr hWnd, 
+			[In] Pixel[] pixels,
+			[In] Coord bufferSize, [In] Coord bufferCoord, [In, Out] ref SmallRect writeRegion);
 
-		[DllImport("kernel32.dll", SetLastError = true)]
+		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
 		private static extern IntPtr GetStdHandle(Int32 stdHandler);
 
-		[DllImport("kernel32.dll", SetLastError = true)]
-		private static extern bool SetCurrentConsoleFontEx(IntPtr consoleOutput, bool maximumWindow, ref FontInfo fontInfo);
+		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+		private static extern bool SetCurrentConsoleFontEx([In] IntPtr consoleOutput, [In] bool maximumWindow, [In] ref FontInfo fontInfo);
 
-		[DllImport("kernel32.dll", SetLastError = true)]
-		private static extern bool GetCurrentConsoleFontEx(IntPtr consoleOutput, bool maximumWindow, ref FontInfo fontInfo);
+		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+		private static extern bool GetCurrentConsoleFontEx([In] IntPtr consoleOutput, [In] bool maximumWindow, [In, Out] ref FontInfo fontInfo);
 
-		[DllImport("kernel32.dll", SetLastError = true)]
-		private static extern bool GetConsoleScreenBufferInfo(IntPtr consoleOutput, ref ScreenBufferInfo bufferInfo);
+		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+		private static extern bool GetConsoleScreenBufferInfo([In] IntPtr consoleOutput, [In, Out] ref ScreenBufferInfo bufferInfo);
 
-		[DllImport("kernel32.dll")]
+		[DllImport("kernel32.dll", ExactSpelling = true)]
 		private static extern uint GetLastError();
 		#endregion
 	}
