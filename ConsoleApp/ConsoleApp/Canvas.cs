@@ -31,16 +31,17 @@ namespace ProceduralLevel.ConsoleApp
 
 		public void Render(Window window, int posX, int posY)
 		{
-			int maxWidth = Math.Min(Console.BufferWidth-posX, Width);
-			int maxHeight = Math.Min(Console.BufferHeight-posY, Height);
+			int maxWidth = Math.Min(window.Width-posX, Width);
+			int maxHeight = Math.Min(window.Height-posY, Height);
 			maxWidth = Math.Max(maxWidth, 0);
 			maxHeight = Math.Max(maxHeight, 0);
 
-			for(int y = 0; y < maxHeight; ++y)
+			for(int x = 0; x < maxWidth; ++x)
 			{
-				for(int x = 0; x < maxWidth; ++x)
+				Pixel[] row = FrameBuffer[x];
+				for(int y = 0; y < maxHeight; ++y)
 				{
-					window.Plot(FrameBuffer[x][y], posX+x, posY+y);
+					window.Plot(row[y], posX+x, posY+y);
 				}
 			}
 		}
@@ -61,7 +62,12 @@ namespace ProceduralLevel.ConsoleApp
 			}
 		}
 
-		public bool Plot(Pixel pixel, int posX, int posY)
+		public void Plot(Pixel pixel, int posX, int posY)
+		{
+			FrameBuffer[posX][posY] = pixel;
+		}
+
+		public bool PlotSafe(Pixel pixel, int posX, int posY)
 		{
 			if(posX >= 0 && posX < Width && posY >= 0 && posY < Height)
 			{
@@ -72,14 +78,9 @@ namespace ProceduralLevel.ConsoleApp
 		}
 
 		#region Draw
-		public bool DrawChar(char chr, int posX, int posY)
+		public void DrawChar(char chr, int posX, int posY)
 		{
-			return Plot(new Pixel(chr, TextColor, BGColor), posX, posY);
-		}
-
-		public bool DrawChar(SByte chr, int posX, int posY)
-		{
-			return Plot(new Pixel(chr, TextColor, BGColor), posX, posY);
+			Plot(new Pixel(chr, TextColor, BGColor), posX, posY);
 		}
 
 		public void SetColor(EColor textColor, EColor bgColor)
@@ -102,7 +103,7 @@ namespace ProceduralLevel.ConsoleApp
 			{
 				for(int y = 0; y < canvas.Height; y++)
 				{
-					DrawChar(canvas.FrameBuffer[x][y].Value, posX+x, posY+y);
+					DrawChar((char)canvas.FrameBuffer[x][y].Value, posX+x, posY+y);
 				}
 			}
 		}

@@ -3,21 +3,15 @@ using System.Runtime.InteropServices;
 
 namespace ProceduralLevel.ConsoleApp
 {
-	[StructLayout(LayoutKind.Explicit)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct Pixel
 	{
-		[FieldOffset(0)] public readonly SByte Value;
-		[FieldOffset(2)] public readonly UInt16 Attributes;
-
-		public Pixel(SByte value, EColor textColor, EColor bgColor)
-		{
-			Value = (SByte)value;
-			Attributes = (ushort)((ushort)textColor | ((ushort)bgColor << 4));
-		}
+		public readonly UInt16 Value;
+		public readonly UInt16 Attributes;
 
 		public Pixel(char value, EColor textColor, EColor bgColor)
 		{
-			Value = (SByte)value;
+			Value = value;
 			Attributes = (ushort)((ushort)textColor | ((ushort)bgColor << 4));
 		}
 

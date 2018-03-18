@@ -31,8 +31,8 @@ namespace ProceduralLevel.ConsoleApp
 
 		public void Render()
 		{
-			if(Console.WindowWidth != m_Width || Console.WindowHeight != m_Height ||
-				Console.BufferWidth != m_Width || Console.BufferHeight != m_Height)
+			ScreenBufferInfo bufferInfo = ConsoleHelper.GetScreenBufferInfo();
+			if(bufferInfo.Size.X != m_Width || bufferInfo.Size.Y != m_Height)
 			{
 				SetSize(m_Width, m_Height);
 			}
@@ -43,7 +43,7 @@ namespace ProceduralLevel.ConsoleApp
 
 		public void Plot(Pixel pixel, int x, int y)
 		{
-			m_Buffer[y*Width+x] = pixel;
+			m_Buffer[y*m_Width+x] = pixel;
 		}
 
 		public void SetSize(int width, int height)
