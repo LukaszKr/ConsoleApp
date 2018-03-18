@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace ProceduralLevel.ConsoleApp.Import
+namespace ProceduralLevel.ConsoleApp
 {
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
 	public unsafe struct FontInfo
@@ -12,13 +12,24 @@ namespace ProceduralLevel.ConsoleApp.Import
 		public EFontWeight FontWeight; //100-1000, multiplies of 100
 		public fixed char FaceName[32];
 
-		public FontInfo(EFontSize fontSize, EFontWeight weight, uint fontIndex = 0)
+		public FontInfo(ETerminalFontSize size)
+		{
+			SizeInBytes = (uint)Marshal.SizeOf<FontInfo>();
+			FontSize = size.ToCoord();
+			FontWeight = EFontWeight.Normal; //terminal font doesn't support it
+			FontIndex = 0;
+			FontFamily = 54;
+			SetFace(EFontFaceExt.TERMINAL);
+		}
+
+		public FontInfo(EFontFace fontFace, EFontSize fontSize, EFontWeight weight)
 		{
 			SizeInBytes = (uint)Marshal.SizeOf<FontInfo>();
 			FontSize = new Coord(0, (int)fontSize);
 			FontWeight = weight;
-			FontIndex = fontIndex;
+			FontIndex = 0;
 			FontFamily = 54; //seems to be always returned in getinto?
+			SetFace(fontFace);
 		}
 
 		public void Init()

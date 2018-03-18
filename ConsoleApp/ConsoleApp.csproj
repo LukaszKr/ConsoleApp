@@ -42,9 +42,11 @@
     <Compile Include="ConsoleApp\Enum\EColor.cs" />
     <Compile Include="ConsoleApp\Enum\Font\EFontFace.cs" />
     <Compile Include="ConsoleApp\Enum\Font\EFontWeight.cs" />
+    <Compile Include="ConsoleApp\Enum\Font\ETerminalFontSize.cs" />
     <Compile Include="ConsoleApp\Import\Coord.cs" />
     <Compile Include="ConsoleApp\Enum\Font\EFontSize.cs" />
     <Compile Include="ConsoleApp\Import\FontInfo.cs" />
+    <Compile Include="ConsoleApp\Import\ScreenBufferInfo.cs" />
     <Compile Include="ConsoleApp\Import\SmallRect.cs" />
     <Compile Include="ConsoleApp\Input\AInputManager.cs" />
     <Compile Include="ConsoleApp\Input\DetectorUpdater.cs" />

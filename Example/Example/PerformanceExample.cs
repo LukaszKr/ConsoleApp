@@ -13,8 +13,10 @@ namespace ProceduralLevel.ConsoleApp.Example
 		{
 			m_Random = new Random();
 			m_Input = new InputManager();
-			ConsoleHelper.SetFontFace(EFontFace.Terminal);
-			ConsoleHelper.SetFontSize(EFontSize.Size_08);
+
+			FontInfo info = new FontInfo(ETerminalFontSize.Size_8x12);
+			ConsoleHelper.SetFont(info);
+			//info = ConsoleHelper.GetFontInfo();
 			m_Console = new Window("Performance Example");
 		}
 
@@ -25,21 +27,25 @@ namespace ProceduralLevel.ConsoleApp.Example
 
 		private void Render(double deltaTime)
 		{
+			Canvas canvas = m_Console.Canvas;
+			int width = m_Console.Width;
+			int height = m_Console.Height;
+
 			double averageFPS = Math.Round(m_Timers[0].AverageFPS);
 			double fps = Math.Round(m_Timers[0].FPS);
-			m_Console.Canvas.SetColor(EColor.White, EColor.Black);
-			m_Console.Canvas.DrawText("FPS: "+fps+", Average FPS: "+averageFPS, 0, 0);
+			canvas.SetColor(EColor.White, EColor.Black);
+			canvas.DrawText("FPS: "+fps+", Average FPS: "+averageFPS, 0, 0);
 
 
 
-			for(int x = 0; x < m_Console.Width; ++x)
+			for(int x = 0; x < width; ++x)
 			{
-				for(int y = 1; y < m_Console.Height; ++y)
+				for(int y = 1; y < height; ++y)
 				{ 
-					char c = (char)((int)'A'+m_Random.Next(0, 20));
+					char c = (char)('A'+m_Random.Next(0, 20));
 					EColor textColor = (EColor)m_Random.Next(0, 16);
 					EColor bgColor = (EColor)m_Random.Next(0, 16);
-					m_Console.Canvas.Plot(new Pixel(c, textColor, bgColor), x, y);
+					canvas.Plot(new Pixel(c, textColor, bgColor), x, y);
 				}
 			}
 			m_Console.Render();

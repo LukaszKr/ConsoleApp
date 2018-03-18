@@ -4,12 +4,11 @@
 	{
 		Consolas = 0,
 		CourierNew = 1,
-		Terminal = 2,
-		LucidaConsole = 3,
-		LucidaSansTypewriter = 4,
-		MSGothic = 5,
-		NSimSun = 6,
-		SimSun_ExtB = 7
+		LucidaConsole = 2,
+		LucidaSansTypewriter = 3,
+		MSGothic = 4,
+		NSimSun = 5,
+		SimSun_ExtB = 6
 	}
 
 	public static class EFontFaceExt
@@ -27,7 +26,6 @@
 		{
 			CONSOLAS,
 			COURIER_NEW,
-			TERMINAL,
 			LUCIDA_CONSOLE,
 			LUCIDA_SANS_TYPEWRITER,
 			MS_GOTHIC,

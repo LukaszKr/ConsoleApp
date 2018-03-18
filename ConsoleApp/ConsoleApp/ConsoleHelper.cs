@@ -1,5 +1,4 @@
-﻿using ProceduralLevel.ConsoleApp.Import;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 
 namespace ProceduralLevel.ConsoleApp
@@ -26,10 +25,26 @@ namespace ProceduralLevel.ConsoleApp
 			return WriteConsoleOutput(m_StdHandle, pixels, bufferSize, bufferCoord, ref writeRegion);
 		}
 
+		public static ScreenBufferInfo GetScreenBufferInfo()
+		{
+			ScreenBufferInfo bufferInfo = new ScreenBufferInfo();
+			CheckError(GetConsoleScreenBufferInfo(m_StdHandle, ref bufferInfo));
+			return bufferInfo;
+		}
+
+		#region Font
 		public static bool SetFontSize(EFontSize size)
 		{
 			FontInfo info = GetFontInfo();
 			info.FontSize = new Coord(0, (int)size);
+			return SetFont(info);
+		}
+
+		public static bool SetFontSize(ETerminalFontSize size)
+		{
+			FontInfo info = GetFontInfo();
+			info.FontSize = size.ToCoord();
+			info.SetFace(EFontFaceExt.TERMINAL);
 			return SetFont(info);
 		}
 
@@ -64,7 +79,9 @@ namespace ProceduralLevel.ConsoleApp
 			CheckError(GetCurrentConsoleFontEx(m_StdHandle, false, ref info));
 			return info;
 		}
+		#endregion
 
+		#region Error Handling
 		public static string GetError()
 		{
 			uint errorCode = GetLastError();
@@ -79,6 +96,7 @@ namespace ProceduralLevel.ConsoleApp
 			}
 			return success;
 		}
+		#endregion
 
 		#region DLL Imports
 		private const int SWP_NOSIZE = 0x0001; //ignore pixewidth/height params
@@ -106,6 +124,9 @@ namespace ProceduralLevel.ConsoleApp
 
 		[DllImport("kernel32.dll", SetLastError = true)]
 		private static extern bool GetCurrentConsoleFontEx(IntPtr consoleOutput, bool maximumWindow, ref FontInfo fontInfo);
+
+		[DllImport("kernel32.dll", SetLastError = true)]
+		private static extern bool GetConsoleScreenBufferInfo(IntPtr consoleOutput, ref ScreenBufferInfo bufferInfo);
 
 		[DllImport("kernel32.dll")]
 		private static extern uint GetLastError();

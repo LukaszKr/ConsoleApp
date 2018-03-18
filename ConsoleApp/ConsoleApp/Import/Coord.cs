@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace ProceduralLevel.ConsoleApp.Import
+namespace ProceduralLevel.ConsoleApp
 {
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Coord

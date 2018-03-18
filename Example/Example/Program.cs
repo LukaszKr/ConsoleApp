@@ -9,6 +9,8 @@
 			AConsoleApp app;
 			//string name = info.GetName();
 
+			ScreenBufferInfo info = ConsoleHelper.GetScreenBufferInfo();
+
 			app = new PerformanceExample();
 			//app = new BasicExample();
 			//app = new ColorExample();
