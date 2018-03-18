@@ -11,8 +11,8 @@
 
 			ScreenBufferInfo info = ConsoleHelper.GetScreenBufferInfo();
 
-			app = new PerformanceExample();
-			//app = new BasicExample();
+			//app = new PerformanceExample();
+			app = new BasicExample();
 			//app = new ColorExample();
 			app.Run();
 		}

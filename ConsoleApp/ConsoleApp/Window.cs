@@ -17,7 +17,7 @@ namespace ProceduralLevel.ConsoleApp
 
 		public Window(string title)
 			//without fullscreen last line hides under taskbar
-			: this(title, Console.LargestWindowWidth, Console.LargestWindowHeight-1)
+			: this(title, Console.LargestWindowWidth, Console.LargestWindowHeight)
 		{
 		}
 

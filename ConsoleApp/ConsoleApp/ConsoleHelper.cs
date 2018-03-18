@@ -6,29 +6,54 @@ namespace ProceduralLevel.ConsoleApp
 	public static class ConsoleHelper
 	{
 		private static readonly IntPtr m_ConsoleHandle;
-		private static readonly IntPtr m_StdHandle;
+		private static readonly IntPtr m_StdOutputHandle;
 
 		static ConsoleHelper()
 		{
 			m_ConsoleHandle = GetConsoleWindow();
-			m_StdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+			m_StdOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+		}
+
+		public static bool IsFullScreen()
+		{
+			UInt32 flags = 0;
+			CheckError(GetConsoleDisplayMode(ref flags));
+			return (flags == 1? true: false);
+		}
+
+		public static void SetFullScreen(bool fullscreen)
+		{
+			Coord coords = new Coord();
+			CheckError(SetConsoleDisplayMode(m_StdOutputHandle, (uint)(fullscreen? 1: 2), ref coords));
+		}
+
+		public static void SetMode(EConsoleMode mode)
+		{
+			CheckError(SetConsoleMode(m_StdOutputHandle, (uint)mode));
+		}
+
+		public static EConsoleMode GetMode()
+		{
+			uint mode = 0;
+			CheckError(GetConsoleMode(m_StdOutputHandle, ref mode));
+			return (EConsoleMode)mode;
 		}
 
 		public static void SetWindowPosition(int px, int py)
 		{
-			SetWindowPos(m_ConsoleHandle, IntPtr.Zero, px, py, 0, 0, SWP_NOACTIVATE | SWP_NOACTIVATE | SWP_NOSIZE);
+			CheckError(SetWindowPos(m_ConsoleHandle, IntPtr.Zero, px, py, 0, 0, SWP_NOACTIVATE | SWP_NOACTIVATE | SWP_NOSIZE));
 		}
 
 		public static bool WriteOutput(Pixel[] pixels, Coord bufferSize, Coord bufferCoord)
 		{
 			SmallRect writeRegion = new SmallRect(bufferCoord.X, bufferCoord.Y, bufferSize.X, bufferSize.Y);
-			return WriteConsoleOutputW(m_StdHandle, pixels, bufferSize, bufferCoord, ref writeRegion);
+			return WriteConsoleOutputW(m_StdOutputHandle, pixels, bufferSize, bufferCoord, ref writeRegion);
 		}
 
 		public static ScreenBufferInfo GetScreenBufferInfo()
 		{
 			ScreenBufferInfo bufferInfo = new ScreenBufferInfo();
-			GetConsoleScreenBufferInfo(m_StdHandle, ref bufferInfo);
+			GetConsoleScreenBufferInfo(m_StdOutputHandle, ref bufferInfo);
 			return bufferInfo;
 		}
 
@@ -69,14 +94,14 @@ namespace ProceduralLevel.ConsoleApp
 
 		public static bool SetFont(FontInfo info)
 		{
-			return SetCurrentConsoleFontEx(m_StdHandle, false, ref info);
+			return SetCurrentConsoleFontEx(m_StdOutputHandle, false, ref info);
 		}
 
 		public static FontInfo GetFontInfo()
 		{
 			FontInfo info = new FontInfo();
 			info.Init();
-			GetCurrentConsoleFontEx(m_StdHandle, false, ref info);
+			GetCurrentConsoleFontEx(m_StdOutputHandle, false, ref info);
 			return info;
 		}
 		#endregion
@@ -102,12 +127,29 @@ namespace ProceduralLevel.ConsoleApp
 		private const int SWP_NOSIZE = 0x0001; //ignore pixewidth/height params
 		private const int SWP_NOZORDER = 0x4; //don't change order of window
 		private const int SWP_NOACTIVATE = 0x10;
+		private const long GENERIC_READ = 0x80000000L;
+		private const long GENERIC_WRITE = 0x40000000L;
 
 		private const int STD_OUTPUT_HANDLE = -11;
 
 		[DllImport("user32", ExactSpelling = true)]
 		private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,
 			Int32 x, Int32 y, Int32 pixelWidth, Int32 pixelHeight, UInt32 flags);
+
+		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+		private static extern bool GetConsoleDisplayMode([In, Out] ref UInt32 flags);
+
+		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+		private static extern bool SetConsoleDisplayMode([In] IntPtr consoleOutput, [In] UInt32 flags, [In, Out] ref Coord screenBufferDimensions);
+
+		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+		private static extern bool SetConsoleMode([In] IntPtr consoleHandle, [In] uint mode);
+
+		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+		private static extern bool GetConsoleMode([In] IntPtr consoleHandle, [In, Out] ref uint mode);
+
+		[DllImport("kernel32.dll", ExactSpelling = true)]
+		private static extern bool PeekConsoleInputW([In] IntPtr consoleInput, [In] InputRecord[] record, [In] uint arrayLength, [In, Out] ref uint numberRead);
 
 		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
 		private static extern IntPtr GetConsoleWindow();
