@@ -42,6 +42,7 @@
     <Compile Include="Example\ColorExample.cs" />
     <Compile Include="Example\Input\EInputLayer.cs" />
     <Compile Include="Example\Input\InputManager.cs" />
+    <Compile Include="Example\PerformanceExample.cs" />
     <Compile Include="Example\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

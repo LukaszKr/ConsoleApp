@@ -9,7 +9,8 @@
 			AConsoleApp app;
 			//string name = info.GetName();
 
-			app = new BasicExample();
+			app = new PerformanceExample();
+			//app = new BasicExample();
 			//app = new ColorExample();
 			app.Run();
 		}
