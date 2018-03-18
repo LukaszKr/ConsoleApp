@@ -7,36 +7,19 @@ namespace ProceduralLevel.ConsoleApp
 	{
 		private static readonly IntPtr m_ConsoleHandle;
 		private static readonly IntPtr m_StdOutputHandle;
+		private static readonly IntPtr m_StdInputHandle;
 
 		static ConsoleHelper()
 		{
 			m_ConsoleHandle = GetConsoleWindow();
 			m_StdOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-		}
-
-		public static bool IsFullScreen()
-		{
-			UInt32 flags = 0;
-			CheckError(GetConsoleDisplayMode(ref flags));
-			return (flags == 1? true: false);
+			m_StdInputHandle = GetStdHandle(STD_INPUT_HANDLE);
 		}
 
 		public static void SetFullScreen(bool fullscreen)
 		{
 			Coord coords = new Coord();
 			CheckError(SetConsoleDisplayMode(m_StdOutputHandle, (uint)(fullscreen? 1: 2), ref coords));
-		}
-
-		public static void SetMode(EConsoleMode mode)
-		{
-			CheckError(SetConsoleMode(m_StdOutputHandle, (uint)mode));
-		}
-
-		public static EConsoleMode GetMode()
-		{
-			uint mode = 0;
-			CheckError(GetConsoleMode(m_StdOutputHandle, ref mode));
-			return (EConsoleMode)mode;
 		}
 
 		public static void SetWindowPosition(int px, int py)
@@ -56,6 +39,32 @@ namespace ProceduralLevel.ConsoleApp
 			GetConsoleScreenBufferInfo(m_StdOutputHandle, ref bufferInfo);
 			return bufferInfo;
 		}
+
+		#region Mode
+		public static void SetInputMode(EInputMode mode)
+		{
+			CheckError(SetConsoleMode(m_StdInputHandle, (uint)mode));
+		}
+
+		public static EInputMode GetInputMode()
+		{
+			uint mode = 0;
+			CheckError(GetConsoleMode(m_StdInputHandle, ref mode));
+			return (EInputMode)mode;
+		}
+
+		public static void SetOutputMode(EOutputMode mode)
+		{
+			CheckError(SetConsoleMode(m_StdOutputHandle, (uint)mode));
+		}
+
+		public static EOutputMode GetOutputMode()
+		{
+			uint mode = 0;
+			CheckError(GetConsoleMode(m_StdOutputHandle, ref mode));
+			return (EOutputMode)mode;
+		}
+		#endregion
 
 		#region Font
 		public static bool SetFontSize(EFontSize size)
@@ -131,13 +140,11 @@ namespace ProceduralLevel.ConsoleApp
 		private const long GENERIC_WRITE = 0x40000000L;
 
 		private const int STD_OUTPUT_HANDLE = -11;
+		private const int STD_INPUT_HANDLE = -10;
 
 		[DllImport("user32", ExactSpelling = true)]
 		private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,
 			Int32 x, Int32 y, Int32 pixelWidth, Int32 pixelHeight, UInt32 flags);
-
-		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
-		private static extern bool GetConsoleDisplayMode([In, Out] ref UInt32 flags);
 
 		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
 		private static extern bool SetConsoleDisplayMode([In] IntPtr consoleOutput, [In] UInt32 flags, [In, Out] ref Coord screenBufferDimensions);

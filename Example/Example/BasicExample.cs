@@ -17,7 +17,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Input = new InputManager();
 			m_Console = new Window("BasicExample");
 
-			EConsoleMode mode = ConsoleHelper.GetMode();
+			EInputMode mode = ConsoleHelper.GetInputMode();
 		}
 
 		protected override Timer[] InitializeTimers()

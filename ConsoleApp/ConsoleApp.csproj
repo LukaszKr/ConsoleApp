@@ -41,8 +41,9 @@
     <Compile Include="ConsoleApp\Canvas.cs" />
     <Compile Include="ConsoleApp\ConsoleHelper.cs" />
     <Compile Include="ConsoleApp\Enum\EColor.cs" />
-    <Compile Include="ConsoleApp\Enum\EConsoleMode.cs" />
+    <Compile Include="ConsoleApp\Enum\EInputMode.cs" />
     <Compile Include="ConsoleApp\Enum\EInputEvent.cs" />
+    <Compile Include="ConsoleApp\Enum\EOutputMode.cs" />
     <Compile Include="ConsoleApp\Enum\Font\EFontFace.cs" />
     <Compile Include="ConsoleApp\Enum\Font\EFontWeight.cs" />
     <Compile Include="ConsoleApp\Enum\Font\ETerminalFontSize.cs" />

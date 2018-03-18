@@ -17,7 +17,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			FontInfo info = new FontInfo(ETerminalFontSize.Size_8x8);
 			ConsoleHelper.SetFont(info);
 			//info = ConsoleHelper.GetFontInfo();
-			m_Console = new Window("Performance Example");
+			m_Console = new Window("Performance Example", true);
 		}
 
 		protected override Timer[] InitializeTimers()

@@ -7,26 +7,39 @@ namespace ProceduralLevel.ConsoleApp
 		private Canvas m_Canvas;
 		private int m_Width;
 		private int m_Height;
+		private bool m_IsFullscreen;
 
 		private Pixel[] m_Buffer;
 
 		public int Width { get { return m_Width; } }
 		public int Height { get { return m_Height; } }
+		public bool IsFullscreen { get { return m_IsFullscreen; } }
+
 
 		public Canvas Canvas { get { return m_Canvas; } }
 
-		public Window(string title)
-			//without fullscreen last line hides under taskbar
-			: this(title, Console.LargestWindowWidth, Console.LargestWindowHeight)
+		public Window(string title, bool fullscreen = false)
 		{
+			Init(title);
+			SetFullscreen(fullscreen);
+			//without fullscreen last line hides under taskbar, that's why -1
+			SetSize(Console.LargestWindowWidth, Console.LargestWindowHeight-(fullscreen? 0: 1));
 		}
 
-		public Window(string title, int width, int height)
+		public Window(string title, int width, int height, bool fullscreen = false)
 		{
+			Init(title);
+			SetFullscreen(fullscreen);
 			SetSize(width, height);
+		}
+
+		private void Init(string title)
+		{
+			//disable mouse and line wrapping, to make sure everything displays as it should
+			ConsoleHelper.SetInputMode(EInputMode.Default);
+			ConsoleHelper.SetOutputMode(EOutputMode.Default);
 			Console.CursorVisible = false;
 			Console.Title = title;
-			m_Canvas = new Canvas(width, height);
 		}
 
 		public void Render()
@@ -46,6 +59,12 @@ namespace ProceduralLevel.ConsoleApp
 			m_Buffer[y*m_Width+x] = pixel;
 		}
 
+		public void SetFullscreen(bool fullscreen)
+		{
+			m_IsFullscreen = fullscreen;
+			ConsoleHelper.SetFullScreen(fullscreen);
+		}
+
 		public void SetSize(int width, int height)
 		{
 			m_Buffer = new Pixel[width*height];
@@ -60,6 +79,7 @@ namespace ProceduralLevel.ConsoleApp
 			Console.SetWindowPosition(0, 0);
 			//resizing seems to restart this
 			Console.CursorVisible = false;
+			m_Canvas = new Canvas(width, height);
 		}
 
 		public void SetMaxSize()
