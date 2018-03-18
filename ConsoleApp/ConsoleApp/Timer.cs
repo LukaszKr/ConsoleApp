@@ -11,7 +11,6 @@
 		public readonly int TargetFPS;
 		public double FPS { get; private set; }
 
-		private double m_AverageTime;
 		public double AverageFPS { get; private set; }
 
 		public long TickCount { get; private set; }
@@ -25,8 +24,8 @@
 			m_Remaining = m_FrameLength;
 			m_Callback = callback;
 
-			m_AverageTime = m_FrameLength;
-			m_SampleWeight = 1.0/targetFPS;
+			AverageFPS = 0f;
+			m_SampleWeight = 0.1f;
 		}
 
 		public void Update(double deltaTime)
@@ -36,9 +35,8 @@
 			{
 				TickCount ++;
 				double totalDeltaTime = m_FrameLength-m_Remaining;
-				m_AverageTime = (1-m_SampleWeight)*m_AverageTime+totalDeltaTime*m_SampleWeight;
-				AverageFPS = 1.0/m_AverageTime;
 				FPS = 1.0/totalDeltaTime;
+				AverageFPS = (1-m_SampleWeight)*AverageFPS+FPS*m_SampleWeight;
 
 				m_Remaining = m_FrameLength;
 				m_Callback(totalDeltaTime);
