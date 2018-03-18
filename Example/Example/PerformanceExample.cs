@@ -36,12 +36,12 @@ namespace ProceduralLevel.ConsoleApp.Example
 			canvas.SetColor(EColor.White, EColor.Black);
 			canvas.DrawText("FPS: "+fps+", Average FPS: "+averageFPS, 0, 0);
 
-
-
 			for(int x = 0; x < width; ++x)
 			{
 				for(int y = 1; y < height; ++y)
 				{ 
+					//console doesn't like changing colors between cells - so this is a worst case scenario
+					//bottleneck here is pInvoke to native code which might be still improved
 					char c = (char)('A'+m_Random.Next(0, 20));
 					EColor textColor = (EColor)m_Random.Next(0, 16);
 					EColor bgColor = (EColor)m_Random.Next(0, 16);
