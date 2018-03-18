@@ -18,4 +18,12 @@
 		Size_36 = 36,
 		Size_72 = 72,
 	}
+
+	public static class EFontSizeExt
+	{
+		public static Coord ToCoord(this EFontSize size)
+		{
+			return new Coord(0, (int)size);
+		}
+	}
 }

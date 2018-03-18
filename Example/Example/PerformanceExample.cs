@@ -14,7 +14,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Random = new Random();
 			m_Input = new InputManager();
 
-			FontInfo info = new FontInfo(ETerminalFontSize.Size_8x12);
+			FontInfo info = new FontInfo(ETerminalFontSize.Size_8x8);
 			ConsoleHelper.SetFont(info);
 			//info = ConsoleHelper.GetFontInfo();
 			m_Console = new Window("Performance Example");

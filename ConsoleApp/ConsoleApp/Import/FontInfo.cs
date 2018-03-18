@@ -12,29 +12,41 @@ namespace ProceduralLevel.ConsoleApp
 		public EFontWeight FontWeight; //100-1000, multiplies of 100
 		public fixed char FaceName[32];
 
-		public FontInfo(ETerminalFontSize size)
+		public FontInfo(ETerminalFontSize size, EFontWeight weight = EFontWeight.Normal)
 		{
 			SizeInBytes = (uint)Marshal.SizeOf<FontInfo>();
 			FontSize = size.ToCoord();
-			FontWeight = EFontWeight.Normal; //terminal font doesn't support it
+			FontWeight = weight;
 			FontIndex = 0;
-			FontFamily = 54;
+			FontFamily = 48; //magic numbers, if set to 54 font size width is ignored
 			SetFace(EFontFaceExt.TERMINAL);
 		}
 
-		public FontInfo(EFontFace fontFace, EFontSize fontSize, EFontWeight weight)
+		public FontInfo(EFontFace fontFace, EFontSize fontSize, EFontWeight weight = EFontWeight.Normal)
 		{
 			SizeInBytes = (uint)Marshal.SizeOf<FontInfo>();
 			FontSize = new Coord(0, (int)fontSize);
 			FontWeight = weight;
 			FontIndex = 0;
-			FontFamily = 54; //seems to be always returned in getinto?
+			FontFamily = 54; //type face font
 			SetFace(fontFace);
 		}
 
 		public void Init()
 		{
 			SizeInBytes = (uint)Marshal.SizeOf<FontInfo>();
+		}
+
+		public void SetSize(EFontSize size)
+		{
+			FontFamily = 54;
+			FontSize = size.ToCoord();
+		}
+
+		public void SetSize(ETerminalFontSize size)
+		{
+			FontFamily = 48;
+			FontSize = size.ToCoord();
 		}
 
 		public void SetFace(EFontFace face)
