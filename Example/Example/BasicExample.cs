@@ -24,7 +24,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 		{
 			return new Timer[]
 			{
-				new Timer(60, Render), new Timer(10, UpdateInput), new Timer(5, Update)
+				new Timer(200, Render), new Timer(10, UpdateInput), new Timer(5, Update)
 			};
 		}
 
@@ -61,6 +61,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Canvas.Clear(px-1, py-1, text.Length+2, 3);
 			m_Console.Canvas.DrawText(text, px, py);
 			m_Console.Canvas.SetColor(EColor.White, EColor.Gray);
+			m_Console.Canvas.Clear(0, 0, m_Console.Canvas.Width, 1);
 			m_Console.Canvas.DrawFrame(px-2, py-2, text.Length+4, 5, "-", "|", '#');
 
 

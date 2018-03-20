@@ -25,20 +25,17 @@ namespace ProceduralLevel.ConsoleApp
 			while(!m_Exit)
 			{
 				Thread.Sleep(1);
-				UpdateTime();
+
+				long ticks = m_Watch.ElapsedTicks;
+				DeltaTime = (double)ticks/Stopwatch.Frequency;
+				m_Watch.Restart();
 
 				for(int x = 0; x < m_Timers.Length; ++x)
 				{
 					m_Timers[x].Update(DeltaTime);
 				}
-			}
-		}
 
-		private void UpdateTime()
-		{
-			long ticks = m_Watch.ElapsedTicks;
-			DeltaTime = (double)ticks/Stopwatch.Frequency;
-			m_Watch.Restart();
+			}
 		}
 
 		protected void Exit()

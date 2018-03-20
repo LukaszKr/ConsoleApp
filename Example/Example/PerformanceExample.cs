@@ -9,12 +9,14 @@ namespace ProceduralLevel.ConsoleApp.Example
 		private Random m_Random;
 		private InputManager m_Input;
 
+		private int m_Offset = 0;
+
 		public PerformanceExample()
 		{
 			m_Random = new Random();
 			m_Input = new InputManager();
 
-			FontInfo info = new FontInfo(ETerminalFontSize.Size_8x8);
+			FontInfo info = new FontInfo(EFontFace.Consolas, EFontSize.Size_12, EFontWeight.Weight_300);
 			ConsoleHelper.SetFont(info);
 			//info = ConsoleHelper.GetFontInfo();
 			m_Console = new Window("Performance Example", true);
@@ -34,17 +36,19 @@ namespace ProceduralLevel.ConsoleApp.Example
 			double averageFPS = Math.Round(m_Timers[0].AverageFPS);
 			double fps = Math.Round(m_Timers[0].FPS);
 			canvas.SetColor(EColor.White, EColor.Black);
+			canvas.Clear(0, 0, canvas.Width, 1);
 			canvas.DrawText("FPS: "+fps+", Average FPS: "+averageFPS, 0, 0);
+			++m_Offset;
 
 			for(int x = 0; x < width; ++x)
 			{
 				for(int y = 1; y < height; ++y)
-				{ 
+				{
 					//console doesn't like changing colors between cells - so this is a worst case scenario
 					//bottleneck here is pInvoke to native code which might be still improved
-					char c = (char)('A'+(x % 23));
-					EColor textColor = (EColor)(x % 16);
-					EColor bgColor = (EColor)((x+y) % 16);
+					char c = (char)('A'+((m_Offset+x) % 23));
+					EColor textColor = (EColor)((m_Offset+x) % 16);
+					EColor bgColor = (EColor)((m_Offset+x+y) % 16);
 					canvas.Plot(new Pixel(c, textColor, bgColor), x, y);
 				}
 			}

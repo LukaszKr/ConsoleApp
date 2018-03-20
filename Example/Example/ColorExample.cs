@@ -30,6 +30,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			double averageFPS = Math.Round(m_Timers[0].AverageFPS);
 			double fps = Math.Round(m_Timers[0].FPS);
 			m_Console.Canvas.SetColor(EColor.White, EColor.Black);
+			m_Console.Canvas.Clear(0, 0, m_Console.Canvas.Width, 1);
 			m_Console.Canvas.DrawText("FPS: "+fps+", Average FPS: "+averageFPS, 0, 0);
 
 			EColor textColor = 0;
