@@ -75,8 +75,10 @@
     <Compile Include="ConsoleApp\Input\Detector\TriggerDetector.cs" />
     <Compile Include="ConsoleApp\Input\Device\AInputDevice.cs" />
     <Compile Include="ConsoleApp\Input\Device\KeyboardDevice.cs" />
+    <Compile Include="ConsoleApp\Input\Device\MouseDevice.cs" />
     <Compile Include="ConsoleApp\Input\Enum\EButtonState.cs" />
     <Compile Include="ConsoleApp\Input\Enum\EInputModifier.cs" />
+    <Compile Include="ConsoleApp\Input\Enum\EMouseButton.cs" />
     <Compile Include="ConsoleApp\Input\IInputReceiver.cs" />
     <Compile Include="ConsoleApp\Input\InputManager.cs" />
     <Compile Include="ConsoleApp\Input\Layer\InputLayer.cs" />

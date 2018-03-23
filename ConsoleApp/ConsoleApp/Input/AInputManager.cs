@@ -6,6 +6,7 @@ namespace ProceduralLevel.ConsoleApp.Input
 	public abstract class AInputManager
 	{
 		public readonly KeyboardDevice Keyboard = new KeyboardDevice();
+		public readonly MouseDevice Mouse = new MouseDevice();
 
 		protected List<InputLayer> m_ActiveLayers = new List<InputLayer>();
 		public List<LayerDefinition> LayerDefinitions = new List<LayerDefinition>();
@@ -35,6 +36,7 @@ namespace ProceduralLevel.ConsoleApp.Input
 					switch(record.EventType)
 					{ 
 						case EInputEvent.MouseEvent:
+							Mouse.ProcessRecord(record);
 							break;
 						case EInputEvent.KeyEvent:
 							Keyboard.ProcessRecord(record);

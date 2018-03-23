@@ -62,12 +62,7 @@ namespace ProceduralLevel.ConsoleApp
 			}
 		}
 
-		public void Plot(Pixel pixel, int posX, int posY)
-		{
-			FrameBuffer[posX][posY] = pixel;
-		}
-
-		public bool PlotSafe(Pixel pixel, int posX, int posY)
+		public bool Plot(Pixel pixel, int posX, int posY)
 		{
 			if(posX >= 0 && posX < Width && posY >= 0 && posY < Height)
 			{
