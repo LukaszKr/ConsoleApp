@@ -22,7 +22,7 @@ namespace ProceduralLevel.ConsoleApp.Input
 
 		}
 
-		public DelayedDetector(ConsoleModifiers modifiers, double delay)
+		public DelayedDetector(EInputModifier modifiers, double delay)
 			: this(new KeyboardModifierProvider(modifiers), delay)
 		{
 

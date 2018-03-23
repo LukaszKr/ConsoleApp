@@ -19,7 +19,7 @@ namespace ProceduralLevel.ConsoleApp.Input
 
 		}
 
-		public DurationDetector(ConsoleModifiers modifiers)
+		public DurationDetector(EInputModifier modifiers)
 			: this(new KeyboardModifierProvider(modifiers))
 		{
 

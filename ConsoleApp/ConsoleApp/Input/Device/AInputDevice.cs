@@ -26,12 +26,20 @@
 
 		public void UpdateState()
 		{
-			if(!Enabled)
+			if(Enabled)
 			{
-				return;
+				OnUpdateState();
 			}
+		}
 
-			OnUpdateState();
+		public void ProcessRecord(InputRecord record)
+		{
+			if(Enabled)
+			{
+				m_IsActive = true;
+				m_AnyKeyPressed = true;
+				OnProcessRecord(record);
+			}
 		}
 
 		protected virtual void OnUpdateState()
@@ -55,6 +63,7 @@
 			m_AnyKeyPressed = m_IsActive;
 		}
 
+		protected abstract void OnProcessRecord(InputRecord record);
 		protected abstract bool IsPressed(int codeValue);
 	}
 }

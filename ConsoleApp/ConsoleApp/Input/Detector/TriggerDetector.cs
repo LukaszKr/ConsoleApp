@@ -17,7 +17,7 @@ namespace ProceduralLevel.ConsoleApp.Input
 
 		}
 
-		public TriggerDetector(ConsoleModifiers modifiers)
+		public TriggerDetector(EInputModifier modifiers)
 			: this(new KeyboardModifierProvider(modifiers))
 		{
 

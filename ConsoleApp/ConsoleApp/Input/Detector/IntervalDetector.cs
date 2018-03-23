@@ -41,7 +41,7 @@ namespace ProceduralLevel.ConsoleApp.Input
 
 		}
 
-		public IntervalDetector(ConsoleModifiers modifiers, params double[] intervals)
+		public IntervalDetector(EInputModifier modifiers, params double[] intervals)
 			: this(new KeyboardModifierProvider(modifiers), intervals)
 		{
 

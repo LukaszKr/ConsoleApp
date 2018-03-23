@@ -13,6 +13,8 @@ namespace ProceduralLevel.ConsoleApp.Input
 		public abstract Type EnumIDType { get; }
 		public double DeltaTime { get; private set; }
 
+		private InputRecord[] m_Buffer = new InputRecord[32];
+
 		public void Update(double deltaTime)
 		{
 			DeltaTime = deltaTime;
@@ -23,6 +25,26 @@ namespace ProceduralLevel.ConsoleApp.Input
 		private void UpdateDevices()
 		{
 			Keyboard.UpdateState();
+
+			if(ConsoleHelper.ReadAvail() > 0)
+			{
+				uint size = ConsoleHelper.ReadInput(m_Buffer);
+				for(int x = 0; x < size; ++x)
+				{
+					InputRecord record = m_Buffer[x];
+					switch(record.EventType)
+					{ 
+						case EInputEvent.MouseEvent:
+							break;
+						case EInputEvent.KeyEvent:
+							Keyboard.ProcessRecord(record);
+							break;
+						case EInputEvent.WindowBufferSizeEvent:
+							break;
+					}
+				}
+			}
+
 		}
 
 		#region Shortcut
@@ -31,9 +53,9 @@ namespace ProceduralLevel.ConsoleApp.Input
 			return Keyboard.Get(key);
 		}
 
-		public EButtonState Get(ConsoleModifiers modifiers)
+		public EButtonState Get(EInputModifier key)
 		{
-			return Keyboard.Get(modifiers);
+			return Keyboard.Get(key);
 		}
 		#endregion
 

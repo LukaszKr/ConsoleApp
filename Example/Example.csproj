@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Example\BasicExample.cs" />
     <Compile Include="Example\ColorExample.cs" />
+    <Compile Include="Example\InputExample.cs" />
     <Compile Include="Example\Input\EInputLayer.cs" />
     <Compile Include="Example\Input\InputManager.cs" />
     <Compile Include="Example\PerformanceExample.cs" />

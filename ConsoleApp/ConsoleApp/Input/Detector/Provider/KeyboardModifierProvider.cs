@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace ProceduralLevel.ConsoleApp.Input
+﻿namespace ProceduralLevel.ConsoleApp.Input
 {
 	public class KeyboardModifierProvider: AInputProvider
 	{
-		private ConsoleModifiers m_Modifier;
+		private EInputModifier m_Modifier;
 
-		public KeyboardModifierProvider(ConsoleModifiers modifier)
+		public KeyboardModifierProvider(EInputModifier modifier)
 		{
 			m_Modifier = modifier;
 		}

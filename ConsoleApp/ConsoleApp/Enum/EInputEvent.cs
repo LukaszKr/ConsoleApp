@@ -1,5 +1,8 @@
-﻿namespace ProceduralLevel.ConsoleApp
+﻿using System;
+
+namespace ProceduralLevel.ConsoleApp
 {
+	[Flags]
 	public enum EInputEvent: ushort
 	{
 		KeyEvent = 0x0001,

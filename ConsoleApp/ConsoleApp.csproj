@@ -39,7 +39,10 @@
   <ItemGroup>
     <Compile Include="ConsoleApp\AConsoleApp.cs" />
     <Compile Include="ConsoleApp\Canvas.cs" />
-    <Compile Include="ConsoleApp\ConsoleHelper.cs" />
+    <Compile Include="ConsoleApp\Console\ConsoleHelper.cs" />
+    <Compile Include="ConsoleApp\Console\ConsoleHelper.Font.cs" />
+    <Compile Include="ConsoleApp\Console\ConsoleHelper.Input.cs" />
+    <Compile Include="ConsoleApp\Console\ConsoleHelper.Mode.cs" />
     <Compile Include="ConsoleApp\Enum\EColor.cs" />
     <Compile Include="ConsoleApp\Enum\EInputMode.cs" />
     <Compile Include="ConsoleApp\Enum\EInputEvent.cs" />
@@ -73,6 +76,7 @@
     <Compile Include="ConsoleApp\Input\Device\AInputDevice.cs" />
     <Compile Include="ConsoleApp\Input\Device\KeyboardDevice.cs" />
     <Compile Include="ConsoleApp\Input\Enum\EButtonState.cs" />
+    <Compile Include="ConsoleApp\Input\Enum\EInputModifier.cs" />
     <Compile Include="ConsoleApp\Input\IInputReceiver.cs" />
     <Compile Include="ConsoleApp\Input\InputManager.cs" />
     <Compile Include="ConsoleApp\Input\Layer\InputLayer.cs" />
