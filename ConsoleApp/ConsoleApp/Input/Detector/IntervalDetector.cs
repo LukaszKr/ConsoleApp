@@ -46,6 +46,12 @@ namespace ProceduralLevel.ConsoleApp.Input
 		{
 
 		}
+
+		public IntervalDetector(EMouseButton button, params double[] intervals)
+			: this(new MouseButtonProvider(button), intervals)
+		{
+
+		}
 		#endregion
 
 		protected override bool OnUpdate(AInputManager inputManager)

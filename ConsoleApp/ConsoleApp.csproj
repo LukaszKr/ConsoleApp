@@ -72,6 +72,7 @@
     <Compile Include="ConsoleApp\Input\Detector\Provider\AInputProvider.cs" />
     <Compile Include="ConsoleApp\Input\Detector\Provider\KeyboardKeyProvider.cs" />
     <Compile Include="ConsoleApp\Input\Detector\Provider\KeyboardModifierProvider.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\Provider\MouseButtonProvider.cs" />
     <Compile Include="ConsoleApp\Input\Detector\TriggerDetector.cs" />
     <Compile Include="ConsoleApp\Input\Device\AInputDevice.cs" />
     <Compile Include="ConsoleApp\Input\Device\KeyboardDevice.cs" />

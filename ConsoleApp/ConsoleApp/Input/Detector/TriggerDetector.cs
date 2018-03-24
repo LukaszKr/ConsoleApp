@@ -22,6 +22,12 @@ namespace ProceduralLevel.ConsoleApp.Input
 		{
 
 		}
+
+		public TriggerDetector(EMouseButton button)
+			: this(new MouseButtonProvider(button))
+		{
+
+		}
 		#endregion
 
 		protected override bool OnUpdate(AInputManager inputManager)

@@ -27,6 +27,12 @@ namespace ProceduralLevel.ConsoleApp.Input
 		{
 
 		}
+
+		public DelayedDetector(EMouseButton button, double delay)
+			: this(new MouseButtonProvider(button), delay)
+		{
+
+		}
 		#endregion
 
 		protected override bool OnUpdate(AInputManager inputManager)

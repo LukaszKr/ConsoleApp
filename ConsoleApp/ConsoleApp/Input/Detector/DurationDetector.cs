@@ -24,6 +24,12 @@ namespace ProceduralLevel.ConsoleApp.Input
 		{
 
 		}
+
+		public DurationDetector(EMouseButton button)
+			: this(new MouseButtonProvider(button))
+		{
+
+		}
 		#endregion
 
 		protected override bool OnUpdate(AInputManager inputManager)
