@@ -26,6 +26,7 @@ namespace ProceduralLevel.ConsoleApp.Input
 		private void UpdateDevices()
 		{
 			Keyboard.UpdateState();
+			Mouse.UpdateState();
 
 			if(ConsoleHelper.ReadAvail() > 0)
 			{

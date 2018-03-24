@@ -19,7 +19,7 @@
 			m_KeyStates = new EButtonState[buttonCount];
 		}
 
-		public EButtonState[] GetButtons()
+		public EButtonState[] GetKeys()
 		{
 			return m_KeyStates;
 		}

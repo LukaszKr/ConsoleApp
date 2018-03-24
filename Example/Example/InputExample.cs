@@ -15,7 +15,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 		{
 			ConsoleHelper.SetFont(new FontInfo(EFontFace.Consolas, EFontSize.Size_20));
 			m_Input = new InputManager();
-			m_Console = new Window("InputExample");
+			m_Console = new Window("InputExample", true);
 		}
 
 		protected override Timer[] InitializeTimers()
@@ -39,10 +39,11 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Canvas.SetColor(EColor.White, EColor.Black);
 			m_Console.Canvas.DrawText("FPS: "+fps+", Average FPS: "+averageFPS+", Mouse("+m_Input.Mouse.X+", "+m_Input.Mouse.Y+")", 0, 0);
 
+			int offy = 1;
+
 			if(m_Input.Keyboard.AnyKeyPressed)
 			{
-				int offy = 1;
-				EButtonState[] states = m_Input.Keyboard.GetButtons();
+				EButtonState[] states = m_Input.Keyboard.GetKeys();
 				for(int x = 0; x < states.Length; ++x)
 				{
 					EButtonState state = states[x];
@@ -58,6 +59,20 @@ namespace ProceduralLevel.ConsoleApp.Example
 							name = ((EInputModifier)x).ToString();
 						}
 						m_Console.Canvas.DrawText(string.Format("{0} [{1}]", name, state), 0, offy);
+						++offy;
+					}
+				}
+			}
+
+			if(m_Input.Mouse.AnyKeyPressed)
+			{
+				EButtonState[] states = m_Input.Mouse.GetKeys();
+				for(int x = 0; x < states.Length; ++x)
+				{
+					EButtonState state = states[x];
+					if(state != EButtonState.Released)
+					{
+						m_Console.Canvas.DrawText(string.Format("{0} [{1}]", x.ToString(), state), 0, offy);
 						++offy;
 					}
 				}

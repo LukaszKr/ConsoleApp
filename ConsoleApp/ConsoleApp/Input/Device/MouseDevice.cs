@@ -8,13 +8,15 @@
 		public int X { get { return m_PosX; } }
 		public int Y { get { return m_PosY; } }
 
-		public MouseDevice() : base(0, null)
+		private uint m_ButtomState; 
+
+		public MouseDevice() : base(3, null)
 		{
 		}
 
 		protected override bool IsPressed(int codeValue)
 		{
-			return false;
+			return (m_ButtomState & (1 << codeValue)) != 0;
 		}
 
 		protected override void OnProcessRecord(InputRecord record)
@@ -22,6 +24,13 @@
 			MouseEventRecord mouseRecord = record.MouseEvent;
 			m_PosX = mouseRecord.MousePosition.X;
 			m_PosY = mouseRecord.MousePosition.Y;
+
+			m_ButtomState = mouseRecord.ButtonState;
+		}
+
+		public EButtonState Get(EMouseButton button)
+		{
+			return m_KeyStates[(int)button];
 		}
 	}
 }
