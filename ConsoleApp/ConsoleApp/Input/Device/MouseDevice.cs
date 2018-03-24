@@ -7,11 +7,11 @@
 
 		private int m_PosX;
 		private int m_PosY;
-		private EScrollWheel m_Scroll = EScrollWheel.Idle;
+		private int m_Scroll = 0;
 
 		public int X { get { return m_PosX; } }
 		public int Y { get { return m_PosY; } }
-		public EScrollWheel Scroll { get { return m_Scroll; } }
+		public int Scroll { get { return m_Scroll; } }
 
 		private uint m_ButtomState; 
 
@@ -26,7 +26,7 @@
 
 		protected override void OnUpdateState()
 		{
-			m_Scroll = EScrollWheel.Idle;
+			m_Scroll = 0;
 
 			base.OnUpdateState();
 		}
@@ -41,11 +41,11 @@
 			{
 				if(mouseRecord.ButtonState == FORWARD_SCROLL)
 				{
-					m_Scroll = EScrollWheel.Forward;
+					m_Scroll = 1;
 				}
 				else if(mouseRecord.ButtonState == BACKWARD_SCROLL)
 				{
-					m_Scroll = EScrollWheel.Backward;
+					m_Scroll = -1;
 				}
 			}
 			else

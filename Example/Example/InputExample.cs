@@ -15,7 +15,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 		{
 			ConsoleHelper.SetFont(new FontInfo(EFontFace.Consolas, EFontSize.Size_20));
 			m_Input = new InputManager();
-			m_Console = new Window("InputExample", true);
+			m_Console = new Window("InputExample", 80, 20);
 		}
 
 		protected override Timer[] InitializeTimers()
