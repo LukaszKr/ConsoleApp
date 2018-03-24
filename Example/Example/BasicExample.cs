@@ -62,7 +62,10 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Canvas.DrawText(text, px, py);
 			m_Console.Canvas.SetColor(EColor.White, EColor.Gray);
 			m_Console.Canvas.Clear(0, 0, m_Console.Canvas.Width, 1);
-			m_Console.Canvas.DrawFrame(px-2, py-2, text.Length+4, 5, "-", "|", '#');
+			m_Console.Canvas.DrawFrame(px-2, py-2, text.Length+4, 5, 
+				new Pixel('-', EColor.White, EColor.Gray), 
+				new Pixel('|', EColor.White, EColor.Gray), 
+				new Pixel('#', EColor.White, EColor.Gray));
 
 
 			int cx = (int)(m_Console.Width*0.75f);
@@ -72,17 +75,15 @@ namespace ProceduralLevel.ConsoleApp.Example
 			double rotSteps = 60;
 			double offset = (m_Offset % rotSteps)/rotSteps;
 			double doublePI = Math.PI*2;
-			m_Console.Canvas.SetColor(EColor.Green, EColor.Black);
 			for(int x = 0; x < lines; ++x)
 			{
 				double rad = doublePI*(x/(double)lines)+doublePI*offset;
 				int dx = cx+(int)Math.Ceiling((Math.Cos(rad)*leng));
 				int dy = cy+(int)Math.Ceiling((Math.Sin(rad)*leng));
-				m_Console.Canvas.DrawLine('#', cx, cy, dx, dy);
+				m_Console.Canvas.DrawLine(new Pixel('#', EColor.Green, EColor.Black), cx, cy, dx, dy);
 			}
 
-			m_Console.Canvas.SetColor(EColor.Red, EColor.Black);
-			m_Console.Canvas.DrawCircle('@', cx, cy, leng+1);
+			m_Console.Canvas.DrawCircle(new Pixel('@', EColor.Red, EColor.Black), cx, cy, leng+1);
 			m_Console.Canvas.SetColor(EColor.White, EColor.Black);
 			
 			double averageFPS = Math.Round(m_Timers[0].AverageFPS);

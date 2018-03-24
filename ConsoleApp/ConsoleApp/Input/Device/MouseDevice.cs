@@ -27,7 +27,6 @@
 		protected override void OnUpdateState()
 		{
 			m_Scroll = 0;
-
 			base.OnUpdateState();
 		}
 
@@ -42,10 +41,12 @@
 				if(mouseRecord.ButtonState == FORWARD_SCROLL)
 				{
 					m_Scroll = 1;
+					m_IsActive = true;
 				}
 				else if(mouseRecord.ButtonState == BACKWARD_SCROLL)
 				{
 					m_Scroll = -1;
+					m_IsActive = true;
 				}
 			}
 			else

@@ -15,7 +15,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 		{
 			ConsoleHelper.SetFont(new FontInfo(EFontFace.Consolas, EFontSize.Size_20));
 			m_Input = new InputManager();
-			m_Console = new Window("InputExample", 80, 20);
+			m_Console = new Window("InputExample", true);
 		}
 
 		protected override Timer[] InitializeTimers()
@@ -30,8 +30,8 @@ namespace ProceduralLevel.ConsoleApp.Example
 		{
 			m_Console.Canvas.Clear();
 
-			m_Console.Canvas.DrawLine('O', m_Console.Canvas.Width/2, 0, m_Input.Mouse.X, m_Input.Mouse.Y);
-			m_Console.Canvas.DrawEllipse('o', m_Input.Mouse.X, m_Input.Mouse.Y, 8, 4);
+			m_Console.Canvas.DrawLine(new Pixel('O', EColor.White, EColor.Black), m_Console.Canvas.Width/2, 0, m_Input.Mouse.X, m_Input.Mouse.Y);
+			m_Console.Canvas.DrawEllipse(new Pixel('o', EColor.White, EColor.Black), m_Input.Mouse.X, m_Input.Mouse.Y, 8, 4);
 			m_Console.Canvas.Plot(new Pixel('@', EColor.DarkBlue, EColor.DarkGray), m_Input.Mouse.X, m_Input.Mouse.Y);
 
 			double averageFPS = Math.Round(m_Timers[0].AverageFPS);

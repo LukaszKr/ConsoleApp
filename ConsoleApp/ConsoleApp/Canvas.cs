@@ -106,7 +106,7 @@ namespace ProceduralLevel.ConsoleApp
 
 		//Bresenham line algorithm
 		//https://pl.wikipedia.org/wiki/Algorytm_Bresenhama#Implementacja
-		public void DrawLine(char chr, int x1, int y1, int x2, int y2)
+		public void DrawLine(Pixel pixel, int x1, int y1, int x2, int y2)
 		{
 			int d, dx, dy, ai, bi, xi, yi;
 			int x = x1, y = y1;
@@ -130,7 +130,7 @@ namespace ProceduralLevel.ConsoleApp
 				yi = -1;
 				dy = y1 - y2;
 			}
-			DrawChar(chr, x, y);
+			Plot(pixel, x, y);
 			if(dx > dy)
 			{
 				ai = (dy - dx) * 2;
@@ -149,7 +149,7 @@ namespace ProceduralLevel.ConsoleApp
 						d += bi;
 						x += xi;
 					}
-					DrawChar(chr, x, y);
+					Plot(pixel, x, y);
 				}
 			}
 			else
@@ -170,19 +170,19 @@ namespace ProceduralLevel.ConsoleApp
 						d += bi;
 						y += yi;
 					}
-					DrawChar(chr, x, y);
+					Plot(pixel, x, y);
 				}
 			}
 		}
 
-		public void DrawCircle(char chr, int centerX, int centerY, int radius)
+		public void DrawCircle(Pixel pixel, int centerX, int centerY, int radius)
 		{
-			DrawEllipse(chr, centerX, centerY, radius, radius);
+			DrawEllipse(pixel, centerX, centerY, radius, radius);
 		}
 
 		//Bresenham ellipse
 		//https://sites.google.com/site/ruslancray/lab/projects/bresenhamscircleellipsedrawingalgorithm/bresenham-s-circle-ellipse-drawing-algorithm
-		public void DrawEllipse(char chr, int centerX, int centerY, int width, int height)
+		public void DrawEllipse(Pixel pixel, int centerX, int centerY, int width, int height)
 		{
 			int a2 = width*width;
 			int b2 = height*height;
@@ -192,10 +192,10 @@ namespace ProceduralLevel.ConsoleApp
 			/* first half */
 			for(x = 0, y = height, sigma = 2*b2+a2*(1-2*height); b2*x <= a2*y; x++)
 			{
-				DrawChar(chr, centerX+x, centerY+y);
-				DrawChar(chr, centerX-x, centerY+y);
-				DrawChar(chr, centerX+x, centerY-y);
-				DrawChar(chr, centerX-x, centerY-y);
+				Plot(pixel, centerX+x, centerY+y);
+				Plot(pixel, centerX-x, centerY+y);
+				Plot(pixel, centerX+x, centerY-y);
+				Plot(pixel, centerX-x, centerY-y);
 				if(sigma >= 0)
 				{
 					sigma += fa2*(1-y);
@@ -207,10 +207,10 @@ namespace ProceduralLevel.ConsoleApp
 			/* second half */
 			for(x = width, y = 0, sigma = 2*a2+b2*(1-2*width); a2*y <= b2*x; y++)
 			{
-				DrawChar(chr, centerX+x, centerY+y);
-				DrawChar(chr, centerX-x, centerY+y);
-				DrawChar(chr, centerX+x, centerY-y);
-				DrawChar(chr, centerX-x, centerY-y);
+				Plot(pixel, centerX+x, centerY+y);
+				Plot(pixel, centerX-x, centerY+y);
+				Plot(pixel, centerX+x, centerY-y);
+				Plot(pixel, centerX-x, centerY-y);
 				if(sigma >= 0)
 				{
 					sigma += fb2*(1-x);
@@ -220,23 +220,23 @@ namespace ProceduralLevel.ConsoleApp
 			}
 		}
 
-		public void DrawRect(string value, int posX, int posY, int width, int height)
+		public void DrawRect(Pixel pixel, int posX, int posY, int width, int height)
 		{
 			for(int y = 0; y < height; y++)
 			{
 				for(int x = 0; x < width; x++)
 				{
-					DrawChar(value[x % value.Length], posX+x, posY+y);
+					Plot(pixel, posX+x, posY+y);
 				}
 			}
 		}
 
-		public void DrawFrame(int posX, int posY, int width, int height, string horizontal, string vertical, char cross)
+		public void DrawFrame(int posX, int posY, int width, int height, Pixel horizontal, Pixel vertical, Pixel cross)
 		{
 			DrawGrid(posX, posY, 1, 1, width-1, height-1, horizontal, vertical, cross);
 		}
 
-		public void DrawGrid(int posX, int posY, int width, int height, int cellWidth, int cellHeight, string horizontal, string vertical, char cross)
+		public void DrawGrid(int posX, int posY, int width, int height, int cellWidth, int cellHeight, Pixel horizontal, Pixel vertical, Pixel cross)
 		{
 			for(int y = 0; y <= height; y++)
 			{
@@ -252,7 +252,7 @@ namespace ProceduralLevel.ConsoleApp
 			{
 				for(int y = 0; y <= height; y++)
 				{
-					DrawChar(cross, posX+x*cellWidth, posY+y*cellHeight);
+					Plot(cross, posX+x*cellWidth, posY+y*cellHeight);
 				}
 			}
 		}

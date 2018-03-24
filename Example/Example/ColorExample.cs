@@ -40,7 +40,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 				for(int y = 0; y < 16; ++y)
 				{
 					m_Console.Canvas.SetColor(textColor, bgColor);
-					m_Console.Canvas.DrawRect(" ", x*GRID_X, y*GRID_Y+1, GRID_X, GRID_Y);
+					m_Console.Canvas.DrawRect(new Pixel(' ', textColor, bgColor), x*GRID_X, y*GRID_Y+1, GRID_X, GRID_Y);
 					string textBin = Convert.ToString((int)textColor, 2).PadLeft(4, '0');
 					string bgBin = Convert.ToString((int)bgColor, 2).PadLeft(4, '0');
 					m_Console.Canvas.DrawText(bgBin, x*GRID_X, y*GRID_Y+1);
