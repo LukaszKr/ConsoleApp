@@ -79,6 +79,7 @@
     <Compile Include="ConsoleApp\Input\Enum\EButtonState.cs" />
     <Compile Include="ConsoleApp\Input\Enum\EInputModifier.cs" />
     <Compile Include="ConsoleApp\Input\Enum\EMouseButton.cs" />
+    <Compile Include="ConsoleApp\Input\Enum\EScrollWheel.cs" />
     <Compile Include="ConsoleApp\Input\IInputReceiver.cs" />
     <Compile Include="ConsoleApp\Input\InputManager.cs" />
     <Compile Include="ConsoleApp\Input\Layer\InputLayer.cs" />
