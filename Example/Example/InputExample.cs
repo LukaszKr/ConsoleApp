@@ -72,7 +72,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 					EButtonState state = states[x];
 					if(state != EButtonState.Released)
 					{
-						m_Console.Canvas.DrawText(string.Format("{0} [{1}]", x.ToString(), state), 0, offy);
+						m_Console.Canvas.DrawText(string.Format("{0} [{1}]", ((EMouseButton)x).ToString(), state), 0, offy);
 						++offy;
 					}
 				}
