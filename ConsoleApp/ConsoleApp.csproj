@@ -38,7 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleApp\AConsoleApp.cs" />
-    <Compile Include="ConsoleApp\Canvas.cs" />
+    <Compile Include="ConsoleApp\Draw\Canvas.cs" />
     <Compile Include="ConsoleApp\Console\ConsoleHelper.cs" />
     <Compile Include="ConsoleApp\Console\ConsoleHelper.Font.cs" />
     <Compile Include="ConsoleApp\Console\ConsoleHelper.Input.cs" />
@@ -84,7 +84,7 @@
     <Compile Include="ConsoleApp\Input\InputManager.cs" />
     <Compile Include="ConsoleApp\Input\Layer\InputLayer.cs" />
     <Compile Include="ConsoleApp\Input\Layer\LayerDefinition.cs" />
-    <Compile Include="ConsoleApp\Pixel.cs" />
+    <Compile Include="ConsoleApp\Draw\Pixel.cs" />
     <Compile Include="ConsoleApp\Timer.cs" />
     <Compile Include="ConsoleApp\Window.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
