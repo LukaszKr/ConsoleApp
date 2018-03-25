@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ProceduralLevel.ConsoleApp
@@ -13,7 +12,6 @@ namespace ProceduralLevel.ConsoleApp
 
 		public static bool SetSize(ref int width, ref int height)
 		{
-			Debug.WriteLine(width+":"+height);
 			bool changed = false;
 			ScreenBufferInfo info = GetScreenBufferInfo();
 			//bounds can't be smaller than screen buffer
