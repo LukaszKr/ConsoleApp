@@ -11,8 +11,6 @@ namespace ProceduralLevel.ConsoleApp
 		public KeyEventRecord KeyEvent;
 		[FieldOffset(4)]
 		public MouseEventRecord MouseEvent;
-		[FieldOffset(4)]
-		public WindowBufferSizeRecord WindowBufferSizeEvent;
 
 		public override string ToString()
 		{
@@ -24,9 +22,6 @@ namespace ProceduralLevel.ConsoleApp
 					break;
 				case EInputEvent.MouseEvent:
 					str = MouseEvent.ToString();
-					break;
-				case EInputEvent.WindowBufferSizeEvent:
-					str = WindowBufferSizeEvent.ToString();
 					break;
 			}
 			return string.Format("[{0}] {1}", EventType.ToString(), str);

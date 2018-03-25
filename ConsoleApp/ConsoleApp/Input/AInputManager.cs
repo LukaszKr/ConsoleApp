@@ -42,8 +42,6 @@ namespace ProceduralLevel.ConsoleApp.Input
 						case EInputEvent.KeyEvent:
 							Keyboard.ProcessRecord(record);
 							break;
-						case EInputEvent.WindowBufferSizeEvent:
-							break;
 					}
 				}
 			}
