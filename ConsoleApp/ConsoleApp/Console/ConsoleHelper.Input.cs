@@ -41,6 +41,7 @@ namespace ProceduralLevel.ConsoleApp
 					InputRecord record = buffer[x];
 					if((filter & record.EventType) == 0)
 					{
+						//(uint)record.EventType == 0x0004 //buffer resize
 						--newCount;
 						for(int y = x; y < count-1; ++y)
 						{

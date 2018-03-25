@@ -48,7 +48,10 @@ namespace ProceduralLevel.ConsoleApp
 			SmallRect rect = new SmallRect(0, 0, width-1, height-1);
 			CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
 			CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, height)));
-			Console.CursorVisible = false;
+			////somehow removes column that was occupied by vertical scrollbar
+			Console.SetCursorPosition(0, 0);
+			////same for horizontal
+			Console.SetWindowPosition(0, 0);
 			return true;
 		}
 
