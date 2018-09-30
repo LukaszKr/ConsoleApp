@@ -19,13 +19,11 @@ namespace ProceduralLevel.ConsoleApp
 			if(width != hSize)
 			{
 				changed = true;
-				width = hSize;
 			}
 			int vSize = info.Bounds.Bottom+1+info.Bounds.Top;
 			if(height != vSize)
 			{
 				changed = true;
-				height = vSize;
 			}
 
 			if(width > info.MaximumWindowSize.X)
