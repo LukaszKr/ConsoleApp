@@ -66,13 +66,11 @@ namespace ProceduralLevel.ConsoleApp
 
 		public void SetSize(int width, int height)
 		{
-			if(ConsoleHelper.SetSize(ref width, ref height))
-			{
-				m_Buffer = new Pixel[width*height];
-				m_Width = width;
-				m_Height = height;
-				m_Canvas = new Canvas(width, height);
-			}
+			ConsoleHelper.SetSize(ref width, ref height);
+			m_Buffer = new Pixel[width*height];
+			m_Width = width;
+			m_Height = height;
+			m_Canvas = new Canvas(width, height);
 		}
 
 		public void SetMaxSize()

@@ -1,28 +1,32 @@
-﻿using ProceduralLevel.ConsoleApp.Input;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ProceduralLevel.ConsoleApp.Example
 {
-	public class ColorExample: AConsoleApp
+	public class ColorExample: AExample
 	{
 		private const int GRID_X = 6;
 		private const int GRID_Y = 2;
 
-		private InputManager m_Input;
-		private Window m_Console;
-
-		protected override void Setup()
+		public ColorExample(InputManager inputManager) : base(inputManager)
 		{
-			m_Input = new InputManager();
-			m_Console = new Window("ColorExample", 16*GRID_X, 16*GRID_Y+1);
 		}
 
-		protected override Timer[] InitializeTimers()
+		protected override void OnSetup()
 		{
-			return new Timer[]
-			{
-				new Timer(60, Render), new Timer(10, UpdateInput), new Timer(10, Update)
-			};
+		}
+
+		protected override Window PrepareWindow()
+		{
+			return new Window("ColorExample", 16*GRID_X, 16*GRID_Y+1);
+		}
+
+		protected override void InitializeTimers(List<Timer> timers)
+		{
+			base.InitializeTimers(timers);
+
+			timers.Add(new Timer(60, Render));
+			timers.Add(new Timer(10, Update));
 		}
 
 		private void Render(double deltaTime)
@@ -53,19 +57,14 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Render();
 		}
 
-		private void UpdateInput(double deltaTime)
-		{
-			m_Input.Update(deltaTime);
-
-			if(m_Input.Get(ConsoleKey.Escape).IsDown())
-			{
-				Exit();
-			}
-		}
-
 		private void Update(double deltaTime)
 		{
 
+		}
+
+		protected override void OnUpdateInput()
+		{
+			
 		}
 	}
 }

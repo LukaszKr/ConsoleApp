@@ -1,22 +1,10 @@
-﻿using System;
-
-namespace ProceduralLevel.ConsoleApp.Example
+﻿namespace ProceduralLevel.ConsoleApp.Example
 {
 	public class Program
 	{
-		private const int EXAMPLE = 0;
-
-		private static readonly Func<AConsoleApp>[] m_Examples = new Func<AConsoleApp>[]
-		{
-			() => new PerformanceExample(),
-			() => new BasicExample(),
-			() => new ColorExample(),
-			() => new InputExample()
-		};
-
 		static void Main(string[] args)
 		{
-			AConsoleApp app = m_Examples[EXAMPLE]();
+			Runner app = new Runner();
 			app.Run();
 		}
 	}

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 
 namespace ProceduralLevel.ConsoleApp
@@ -15,33 +16,36 @@ namespace ProceduralLevel.ConsoleApp
 		public AConsoleApp()
 		{
 			m_Watch = new Stopwatch();
-			m_Timers = InitializeTimers();
+
+			List<Timer> timers = new List<Timer>();
+			InitializeTimers(timers);
+			m_Timers = timers.ToArray();
 		}
 
-		protected abstract Timer[] InitializeTimers();
+		protected abstract void InitializeTimers(List<Timer> timers);
 
 		public void Run()
 		{
-			Setup();
 			while(!m_Exit)
 			{
 				Thread.Sleep(1);
-
-				long ticks = m_Watch.ElapsedTicks;
-				DeltaTime = (double)ticks/Stopwatch.Frequency;
-				m_Watch.Restart();
-
-				for(int x = 0; x < m_Timers.Length; ++x)
-				{
-					m_Timers[x].Update(DeltaTime);
-				}
-
+				Tick();
 			}
 		}
 
-		protected abstract void Setup();
+		public virtual void Tick()
+		{
+			long ticks = m_Watch.ElapsedTicks;
+			DeltaTime = (double)ticks/Stopwatch.Frequency;
+			m_Watch.Restart();
 
-		protected void Exit()
+			for(int x = 0; x < m_Timers.Length; ++x)
+			{
+				m_Timers[x].Update(DeltaTime);
+			}
+		}
+
+		public void Exit()
 		{
 			m_Exit = true;
 		}

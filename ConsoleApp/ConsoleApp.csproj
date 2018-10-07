@@ -67,7 +67,7 @@
     <Compile Include="ConsoleApp\Input\Detector\DurationDetector.cs" />
     <Compile Include="ConsoleApp\Input\Detector\Group\AGroupDetector.cs" />
     <Compile Include="ConsoleApp\Input\Detector\Group\CombinationDetector.cs" />
-    <Compile Include="ConsoleApp\Input\Detector\Group\CompositeDetector.cs" />
+    <Compile Include="ConsoleApp\Input\Detector\Group\MultipleDetector.cs" />
     <Compile Include="ConsoleApp\Input\Detector\IntervalDetector.cs" />
     <Compile Include="ConsoleApp\Input\Detector\Provider\AInputProvider.cs" />
     <Compile Include="ConsoleApp\Input\Detector\Provider\KeyboardKeyProvider.cs" />

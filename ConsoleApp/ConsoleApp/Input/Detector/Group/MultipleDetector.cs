@@ -1,10 +1,10 @@
 ﻿namespace ProceduralLevel.ConsoleApp.Input
 {
-	public class CompositeDetector: AGroupDetector
+	public class MultipleDetector: AGroupDetector
 	{
 		protected override bool DefaultState { get { return false; } }
 
-		public CompositeDetector(params AInputDetector[] detectors) : base(detectors)
+		public MultipleDetector(params AInputDetector[] detectors) : base(detectors)
 		{
 		}
 

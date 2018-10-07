@@ -1,29 +1,36 @@
-﻿using ProceduralLevel.ConsoleApp.Input;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ProceduralLevel.ConsoleApp.Example
 {
-	public class PerformanceExample: AConsoleApp
+	public class PerformanceExample: AExample
 	{
-		private Window m_Console;
 		private Random m_Random;
-		private InputManager m_Input;
 
 		private int m_Offset = 0;
 
-		protected override void Setup()
+		public PerformanceExample(InputManager inputManager) : base(inputManager)
+		{
+		}
+
+		protected override void OnSetup()
 		{
 			m_Random = new Random();
-			m_Input = new InputManager();
 
 			FontInfo info = new FontInfo(EFontFace.Consolas, EFontSize.Size_16, EFontWeight.Weight_300);
 			ConsoleHelper.SetFont(info);
-			m_Console = new Window("Performance Example", true);
 		}
 
-		protected override Timer[] InitializeTimers()
+		protected override Window PrepareWindow()
 		{
-			return new Timer[] { new Timer(60, Render), new Timer(10, UpdateInput) };
+			return new Window("Performance Example", true);
+		}
+
+		protected override void InitializeTimers(List<Timer> timers)
+		{
+			base.InitializeTimers(timers);
+
+			timers.Add(new Timer(60, Render));
 		}
 
 		private void Render(double deltaTime)
@@ -54,14 +61,8 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Render();
 		}
 
-		private void UpdateInput(double deltaTime)
+		protected override void OnUpdateInput()
 		{
-			m_Input.Update(deltaTime);
-
-			if(m_Input.Get(ConsoleKey.Escape).IsDown())
-			{
-				Exit();
-			}
 		}
 	}
 }

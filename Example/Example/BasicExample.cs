@@ -1,39 +1,33 @@
-﻿using ProceduralLevel.ConsoleApp.Input;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ProceduralLevel.ConsoleApp.Example
 {
-	public class BasicExample: AConsoleApp
+	public class BasicExample: AExample
 	{
-		private InputManager m_Input;
-		private Window m_Console;
 		private int m_Offset = 0;
 
-		protected override void Setup()
+		public BasicExample(InputManager inputManager) : base(inputManager)
+		{
+		}
+
+		protected override void OnSetup()
 		{
 			ConsoleHelper.SetFontSize(EFontSize.Size_16);
 			ConsoleHelper.SetFontFace(EFontFace.Consolas);
-
-			m_Input = new InputManager();
-			m_Console = new Window("BasicExample", 130, 50);
 		}
 
-		protected override Timer[] InitializeTimers()
+		protected override Window PrepareWindow()
 		{
-			return new Timer[]
-			{
-				new Timer(200, Render), new Timer(10, UpdateInput), new Timer(5, Update)
-			};
+			return new Window("BasicExample", 130, 50);
 		}
 
-		private void UpdateInput(double deltaTime)
+		protected override void InitializeTimers(List<Timer> timers)
 		{
-			m_Input.Update(deltaTime);
+			base.InitializeTimers(timers);
 
-			if(m_Input.Get(ConsoleKey.Escape).IsDown())
-			{
-				Exit();
-			}
+			timers.Add(new Timer(200, Render));
+			timers.Add(new Timer(5, Update));
 		}
 
 		private void Update(double deltaTime)
@@ -89,6 +83,11 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Canvas.DrawText("FPS: "+fps+", Average FPS: "+averageFPS, 0, 0);
 			m_Console.Canvas.DrawText((m_Offset % 2 == 0? "+": "-"), m_Offset % m_Console.Width, 1);
 			m_Console.Render();
+		}
+
+		protected override void OnUpdateInput()
+		{
+
 		}
 	}
 }
