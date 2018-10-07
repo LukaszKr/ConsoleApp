@@ -9,15 +9,13 @@ namespace ProceduralLevel.ConsoleApp.Example
 		private Window m_Console;
 		private int m_Offset = 0;
 
-		public BasicExample()
+		protected override void Setup()
 		{
 			ConsoleHelper.SetFontSize(EFontSize.Size_16);
 			ConsoleHelper.SetFontFace(EFontFace.Consolas);
 
 			m_Input = new InputManager();
 			m_Console = new Window("BasicExample");
-
-			EInputMode mode = ConsoleHelper.GetInputMode();
 		}
 
 		protected override Timer[] InitializeTimers()

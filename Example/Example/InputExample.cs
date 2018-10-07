@@ -11,7 +11,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 		private InputManager m_Input;
 		private Window m_Console;
 
-		public InputExample()
+		protected override void Setup()
 		{
 			ConsoleHelper.SetFont(new FontInfo(EFontFace.Consolas, EFontSize.Size_20));
 			m_Input = new InputManager();

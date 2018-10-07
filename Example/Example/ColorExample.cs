@@ -11,7 +11,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 		private InputManager m_Input;
 		private Window m_Console;
 
-		public ColorExample()
+		protected override void Setup()
 		{
 			m_Input = new InputManager();
 			m_Console = new Window("ColorExample", 16*GRID_X, 16*GRID_Y+1);

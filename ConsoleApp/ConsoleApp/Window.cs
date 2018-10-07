@@ -77,7 +77,8 @@ namespace ProceduralLevel.ConsoleApp
 
 		public void SetMaxSize()
 		{
-			SetSize(Console.LargestWindowWidth, Console.LargestWindowHeight-1);
+			ScreenBufferInfo info = ConsoleHelper.GetScreenBufferInfo();
+			SetSize(info.MaximumWindowSize.X, info.MaximumWindowSize.Y);
 		}
 	}
 }

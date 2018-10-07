@@ -22,6 +22,7 @@ namespace ProceduralLevel.ConsoleApp
 
 		public void Run()
 		{
+			Setup();
 			while(!m_Exit)
 			{
 				Thread.Sleep(1);
@@ -37,6 +38,8 @@ namespace ProceduralLevel.ConsoleApp
 
 			}
 		}
+
+		protected abstract void Setup();
 
 		protected void Exit()
 		{

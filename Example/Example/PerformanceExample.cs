@@ -11,14 +11,13 @@ namespace ProceduralLevel.ConsoleApp.Example
 
 		private int m_Offset = 0;
 
-		public PerformanceExample()
+		protected override void Setup()
 		{
 			m_Random = new Random();
 			m_Input = new InputManager();
 
-			FontInfo info = new FontInfo(EFontFace.Consolas, EFontSize.Size_12, EFontWeight.Weight_300);
+			FontInfo info = new FontInfo(EFontFace.Consolas, EFontSize.Size_16, EFontWeight.Weight_300);
 			ConsoleHelper.SetFont(info);
-			//info = ConsoleHelper.GetFontInfo();
 			m_Console = new Window("Performance Example", true);
 		}
 

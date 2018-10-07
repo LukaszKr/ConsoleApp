@@ -4,7 +4,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 {
 	public class Program
 	{
-		private const int EXAMPLE = 3;
+		private const int EXAMPLE = 0;
 
 		private static readonly Func<AConsoleApp>[] m_Examples = new Func<AConsoleApp>[]
 		{

@@ -26,29 +26,63 @@ namespace ProceduralLevel.ConsoleApp
 				changed = true;
 			}
 
-			if(width > info.MaximumWindowSize.X)
+			bool widthDecrease = false;
+			bool heightDecrease = false;
+
+			if(width < info.Size.X)
 			{
-				changed = true;
-				width = info.MaximumWindowSize.X;
+				widthDecrease = true;
 			}
-			if(height > info.MaximumWindowSize.Y)
+			if(height < info.Size.Y)
 			{
-				changed = true;
-				height = info.MaximumWindowSize.Y;
+				heightDecrease = true;
 			}
 			if(width == info.Size.X && height == info.Size.Y && info.Bounds.Left == 0 && info.Bounds.Top == 0)
 			{
 				return changed;
 			}
 
-			SmallRect rect = new SmallRect(0, 0, width-1, height-1);
-			CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
-			CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, height)));
+			if(!widthDecrease && !heightDecrease)
+			{
+				CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, height)));
+				ValidateScreenSize(width, height);
+				SmallRect rect = new SmallRect(0, 0, width-1, height-1);
+				CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
+			}
+			else if(widthDecrease && heightDecrease)
+			{
+				SmallRect rect = new SmallRect(0, 0, width-1, height-1);
+				CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
+				CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, height)));
+			}
+			else
+			{
+				SmallRect rect = new SmallRect(0, 0, width-1, info.MaximumWindowSize.Y-1);
+				CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
+				CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, info.MaximumWindowSize.Y)));
+
+				rect = new SmallRect(0, 0, width-1, height-1);
+				CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
+				CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, height)));
+			}
 			////somehow removes column that was occupied by vertical scrollbar
 			Console.SetCursorPosition(0, 0);
 			////same for horizontal
 			Console.SetWindowPosition(0, 0);
 			return true;
+		}
+
+		private static void ValidateScreenSize(int width, int height)
+		{
+			ScreenBufferInfo info = GetScreenBufferInfo();
+			if(info.MaximumWindowSize.X < width)
+			{
+				throw new ArgumentOutOfRangeException(string.Format("MaxWidth: {0}, Attempted: {1}", info.MaximumWindowSize.X.ToString(), width.ToString()));
+			}
+			if(info.MaximumWindowSize.Y < height)
+			{
+				throw new ArgumentOutOfRangeException(string.Format("MaxHeight: {0}, Attempted: {1}", info.MaximumWindowSize.Y.ToString(), height.ToString()));
+			}
 		}
 
 		public static ScreenBufferInfo GetScreenBufferInfo()
