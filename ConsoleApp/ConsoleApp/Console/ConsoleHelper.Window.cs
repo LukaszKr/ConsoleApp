@@ -42,28 +42,43 @@ namespace ProceduralLevel.ConsoleApp
 				return changed;
 			}
 
-			if(!widthDecrease && !heightDecrease)
+			if(!widthDecrease && !heightDecrease) //if screen increases, we have to set buffer first, then window
 			{
 				CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, height)));
-				ValidateScreenSize(width, height);
 				SmallRect rect = new SmallRect(0, 0, width-1, height-1);
 				CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
 			}
-			else if(widthDecrease && heightDecrease)
+			else if(widthDecrease && heightDecrease) //in case of decreasing, window changes first or we get an error
 			{
 				SmallRect rect = new SmallRect(0, 0, width-1, height-1);
 				CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
 				CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, height)));
 			}
-			else
+			else //for mixed case, each dimension has to be handled separately
 			{
 				SmallRect rect = new SmallRect(0, 0, width-1, info.MaximumWindowSize.Y-1);
-				CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
-				CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, info.MaximumWindowSize.Y)));
+				if(widthDecrease)
+				{
+					CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
+					CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, info.MaximumWindowSize.Y)));
+				}
+				else
+				{
+					CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, info.MaximumWindowSize.Y)));
+					CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
+				}
 
 				rect = new SmallRect(0, 0, width-1, height-1);
-				CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
-				CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, height)));
+				if(heightDecrease)
+				{
+					CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
+					CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, height)));
+				}
+				else
+				{
+					CheckError(SetConsoleScreenBufferSize(m_StdOutputHandle, new Coord(width, height)));
+					CheckError(SetConsoleWindowInfo(m_StdOutputHandle, true, ref rect));
+				}
 			}
 			////somehow removes column that was occupied by vertical scrollbar
 			Console.SetCursorPosition(0, 0);
@@ -72,7 +87,7 @@ namespace ProceduralLevel.ConsoleApp
 			return true;
 		}
 
-		private static void ValidateScreenSize(int width, int height)
+		public static void ValidateScreenSize(int width, int height)
 		{
 			ScreenBufferInfo info = GetScreenBufferInfo();
 			if(info.MaximumWindowSize.X < width)
