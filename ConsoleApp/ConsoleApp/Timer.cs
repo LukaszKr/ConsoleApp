@@ -1,12 +1,12 @@
 ﻿namespace ProceduralLevel.ConsoleApp
 {
 	public class Timer
-	{
-		private double m_Remaining;
+	{		
 		private TickCallback m_Callback;
-		private double m_FPSSmoothing;
-		public readonly double FrameTime;
+		private double m_Remaining;
+		private double m_AverageSmooth;
 
+		public readonly double FrameTime;
 		public readonly int TargetFPS;
 		public double FPS { get; private set; }
 
@@ -21,7 +21,7 @@
 			TargetFPS = targetFPS;
 			FrameTime = 1.0/TargetFPS;
 			m_Callback = callback;
-			m_FPSSmoothing = FrameTime;
+			m_AverageSmooth = FrameTime;
 
 			Reset();
 		}
@@ -39,10 +39,10 @@
 			if(m_Remaining <= 0f) //some issue here, when on low FPS it's spiking randomly causing Average FPS to go a bit crazy
 			{
 				TickCount ++;
-				double timePassed = FrameTime-m_Remaining;
-				FPS = 1.0/timePassed;
+				double elapsed = FrameTime-m_Remaining;
+				FPS = 1.0/elapsed;
 				FPS = (TargetFPS > FPS ? FPS : TargetFPS);
-				AverageFPS = FPS*m_FPSSmoothing+(AverageFPS*(1-m_FPSSmoothing));
+				AverageFPS = FPS*m_AverageSmooth+(AverageFPS*(1-m_AverageSmooth));
 				m_Remaining += FrameTime;
 				m_Callback(this);
 			}
