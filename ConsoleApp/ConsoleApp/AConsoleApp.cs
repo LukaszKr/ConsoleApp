@@ -45,6 +45,15 @@ namespace ProceduralLevel.ConsoleApp
 			}
 		}
 
+		public void ResetTimers()
+		{
+			m_Watch.Reset();
+			for(int x = 0; x < m_Timers.Length; ++x)
+			{
+				m_Timers[x].Reset();
+			}
+		}
+
 		public void Exit()
 		{
 			m_Exit = true;

@@ -2,10 +2,11 @@
 {
 	public class Timer
 	{
+
 		private double m_Remaining;
 		private double m_FrameTime;
 		private TickCallback m_Callback;
-		private double m_SampleWeight;
+		private double m_FPSSmoothing;
 
 		public readonly int TargetFPS;
 		public double FPS { get; private set; }
@@ -20,11 +21,17 @@
 		{
 			TargetFPS = targetFPS;
 			m_FrameTime = 1.0/TargetFPS;
-			m_Remaining = m_FrameTime;
 			m_Callback = callback;
+			m_FPSSmoothing = m_FrameTime;
 
-			AverageFPS = 0f;
-			m_SampleWeight = m_FrameTime;
+			Reset();
+		}
+
+		public void Reset()
+		{
+			m_Remaining = m_FrameTime;
+			FPS = TargetFPS;
+			AverageFPS = TargetFPS;
 		}
 
 		public void Update(double deltaTime)
@@ -35,10 +42,21 @@
 				TickCount ++;
 				double timePassed = m_FrameTime-m_Remaining;
 				FPS = 1.0/timePassed;
-				AverageFPS = (1-m_SampleWeight)*AverageFPS+FPS*m_SampleWeight;
-				m_Remaining = m_FrameTime;
-				m_Callback(timePassed);
+				FPS = (TargetFPS > FPS ? FPS : TargetFPS);
+				AverageFPS = FPS*m_FPSSmoothing+(AverageFPS*(1-m_FPSSmoothing));
+				m_Remaining += m_FrameTime;
+				m_Callback(m_FrameTime);
 			}
+		}
+
+		public bool IsFallingBehind()
+		{
+			return m_Remaining < -m_FrameTime;
+		}
+
+		public void SkipTick()
+		{
+			m_Remaining += m_FrameTime;
 		}
 	}
 }

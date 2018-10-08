@@ -23,10 +23,10 @@ namespace ProceduralLevel.ConsoleApp.Example
 
 		protected override void InitializeTimers(List<Timer> timers)
 		{
-			base.InitializeTimers(timers);
-
 			timers.Add(new Timer(60, Render));
 			timers.Add(new Timer(10, Update));
+
+			base.InitializeTimers(timers);
 		}
 
 		private void Render(double deltaTime)

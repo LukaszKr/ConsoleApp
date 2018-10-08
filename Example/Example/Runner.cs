@@ -84,6 +84,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 				m_Running.Exit();
 			}
 			m_Running = m_Examples[m_Current];
+			m_Running.ResetTimers();
 			m_Running.Setup();
 		}
 
