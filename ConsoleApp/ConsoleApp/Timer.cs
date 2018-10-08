@@ -21,7 +21,7 @@
 			TargetFPS = targetFPS;
 			FrameTime = 1.0/TargetFPS;
 			m_Callback = callback;
-			m_AverageSmooth = FrameTime;
+			m_AverageSmooth = 1-FrameTime;
 
 			Reset();
 		}
@@ -30,19 +30,19 @@
 		{
 			m_Remaining = FrameTime;
 			FPS = TargetFPS;
-			AverageFPS = TargetFPS;
+			AverageFPS = TargetFPS/2;
 		}
 
 		public void Update(double deltaTime)
 		{
 			m_Remaining -= deltaTime;
+			FPS = 1.0/deltaTime;
+			FPS = (TargetFPS > FPS ? FPS : TargetFPS);
+			AverageFPS = FPS*m_AverageSmooth+(AverageFPS*(1-m_AverageSmooth));
+
 			if(m_Remaining <= 0f) //some issue here, when on low FPS it's spiking randomly causing Average FPS to go a bit crazy
 			{
 				TickCount ++;
-				double elapsed = FrameTime-m_Remaining;
-				FPS = 1.0/elapsed;
-				FPS = (TargetFPS > FPS ? FPS : TargetFPS);
-				AverageFPS = FPS*m_AverageSmooth+(AverageFPS*(1-m_AverageSmooth));
 				m_Remaining += FrameTime;
 				m_Callback(this);
 			}

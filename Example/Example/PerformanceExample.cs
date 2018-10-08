@@ -17,7 +17,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 		{
 			m_Random = new Random();
 
-			FontInfo info = new FontInfo(EFontFace.Consolas, EFontSize.Size_16, EFontWeight.Weight_300);
+			FontInfo info = new FontInfo(EFontFace.Consolas, EFontSize.Size_10, EFontWeight.Weight_300);
 			ConsoleHelper.SetFont(info);
 		}
 
@@ -28,7 +28,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 
 		protected override void InitializeTimers(List<Timer> timers)
 		{
-			timers.Add(new Timer(60, Render));
+			timers.Add(new Timer(20, Render));
 
 			base.InitializeTimers(timers);
 		}

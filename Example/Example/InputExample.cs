@@ -20,7 +20,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 
 		protected override Window PrepareWindow()
 		{
-			return new Window("InputExample", false);
+			return new Window("InputExample", 80, 40, false);
 		}
 
 		protected override void InitializeTimers(List<Timer> timers)
