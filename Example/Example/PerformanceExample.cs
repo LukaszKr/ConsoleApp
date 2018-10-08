@@ -33,14 +33,14 @@ namespace ProceduralLevel.ConsoleApp.Example
 			base.InitializeTimers(timers);
 		}
 
-		private void Render(double deltaTime)
+		private void Render(Timer timer)
 		{
 			Canvas canvas = m_Console.Canvas;
 			int width = m_Console.Width;
 			int height = m_Console.Height;
 
-			double averageFPS = Math.Round(m_Timers[0].AverageFPS);
-			double fps = Math.Round(m_Timers[0].FPS);
+			double averageFPS = Math.Round(timer.AverageFPS);
+			double fps = Math.Round(timer.FPS);
 			canvas.SetColor(EColor.White, EColor.Black);
 			canvas.Clear(0, 0, canvas.Width, 1);
 			canvas.DrawText("FPS: "+fps+", Average FPS: "+averageFPS, 0, 0);

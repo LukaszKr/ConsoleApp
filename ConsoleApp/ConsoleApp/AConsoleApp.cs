@@ -6,7 +6,7 @@ namespace ProceduralLevel.ConsoleApp
 {
 	public abstract class AConsoleApp
 	{
-		protected Timer[] m_Timers;
+		private Timer[] m_Timers;
 		private bool m_Exit;
 
 		private Stopwatch m_Watch;

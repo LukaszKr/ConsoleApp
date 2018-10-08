@@ -24,18 +24,18 @@ namespace ProceduralLevel.ConsoleApp.Example
 
 		protected override void InitializeTimers(List<Timer> timers)
 		{
+			base.InitializeTimers(timers);
+
 			timers.Add(new Timer(200, Render));
 			timers.Add(new Timer(5, Update));
-
-			base.InitializeTimers(timers);
 		}
 
-		private void Update(double deltaTime)
+		private void Update(Timer timer)
 		{
 			m_Offset++;
 		}
 
-		private void Render(double deltaTime)
+		private void Render(Timer timer)
 		{
 			//this could be done once as it doesn't change
 			//putting it here to test performance
@@ -78,8 +78,8 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Canvas.DrawCircle(new Pixel('@', EColor.Red, EColor.Black), cx, cy, leng+1);
 			m_Console.Canvas.SetColor(EColor.White, EColor.Black);
 			
-			double averageFPS = Math.Round(m_Timers[0].AverageFPS);
-			double fps = Math.Round(m_Timers[0].FPS);
+			double averageFPS = Math.Round(timer.AverageFPS);
+			double fps = Math.Round(timer.FPS);
 			m_Console.Canvas.DrawText("FPS: "+fps+", Average FPS: "+averageFPS, 0, 0);
 			m_Console.Canvas.DrawText((m_Offset % 2 == 0? "+": "-"), m_Offset % m_Console.Width, 1);
 			m_Console.Render();

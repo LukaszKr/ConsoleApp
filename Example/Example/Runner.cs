@@ -47,9 +47,9 @@ namespace ProceduralLevel.ConsoleApp.Example
 			timers.Add(new Timer(100, UpdateInput));
 		}
 
-		private void UpdateInput(double deltaTime)
+		private void UpdateInput(Timer timer)
 		{
-			m_Input.Update(deltaTime);
+			m_Input.Update(timer.FrameTime);
 			m_Updater.Update(m_Input);
 
 			if(m_ExitInput.Triggered)

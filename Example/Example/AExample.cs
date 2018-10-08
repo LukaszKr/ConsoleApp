@@ -23,7 +23,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			timers.Add(new Timer(100, UpdateInput));
 		}
 
-		private void UpdateInput(double deltaTime)
+		private void UpdateInput(Timer timer)
 		{
 			OnUpdateInput();
 		}

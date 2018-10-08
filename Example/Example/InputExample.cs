@@ -31,7 +31,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			base.InitializeTimers(timers);
 		}
 
-		private void Render(double deltaTime)
+		private void Render(Timer timer)
 		{
 			m_Console.Canvas.Clear();
 
@@ -39,8 +39,8 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Canvas.DrawEllipse(new Pixel('o', EColor.White, EColor.Black), m_Input.Mouse.X, m_Input.Mouse.Y, 8, 4);
 			m_Console.Canvas.Plot(new Pixel('@', EColor.DarkBlue, EColor.DarkGray), m_Input.Mouse.X, m_Input.Mouse.Y);
 
-			double averageFPS = Math.Round(m_Timers[0].AverageFPS);
-			double fps = Math.Round(m_Timers[0].FPS);
+			double averageFPS = Math.Round(timer.AverageFPS);
+			double fps = Math.Round(timer.FPS);
 			m_Console.Canvas.SetColor(EColor.White, EColor.Black);
 			m_Console.Canvas.DrawText("FPS: "+fps+", Average FPS: "+averageFPS+", Mouse("+m_Input.Mouse.X+", "+m_Input.Mouse.Y+", "+m_Input.Mouse.Scroll+")", 0, 0);
 
@@ -86,7 +86,7 @@ namespace ProceduralLevel.ConsoleApp.Example
 			m_Console.Render();
 		}
 
-		private void Update(double deltaTime)
+		private void Update(Timer timer)
 		{
 
 		}
