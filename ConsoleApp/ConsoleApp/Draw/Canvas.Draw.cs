@@ -3,6 +3,24 @@
 	public partial class Canvas
 	{
 		#region Draw
+		public void SetChar(char chr, int posX, int posY)
+		{
+			Pixel pixel = Read(posX, posY);
+			Plot(new Pixel(chr, pixel.TextColor, pixel.BGColor), posX, posY);
+		}
+
+		public void SetTextColor(EColor textColor, int posX, int posY)
+		{
+			Pixel pixel = Read(posX, posY);
+			Set(new Pixel(pixel.Value, textColor, pixel.BGColor), posX, posY);
+		}
+
+		public void SetBGColor(EColor bgColor, int posX, int posY)
+		{
+			Pixel pixel = Read(posX, posY);
+			Set(new Pixel(pixel.Value, pixel.TextColor, bgColor), posX, posY);
+		}
+
 		public void DrawChar(char chr, int posX, int posY)
 		{
 			Plot(new Pixel(chr, TextColor, BGColor), posX, posY);

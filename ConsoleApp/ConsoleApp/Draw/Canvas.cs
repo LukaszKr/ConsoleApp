@@ -57,7 +57,7 @@
 			return false;
 		}
 
-		public bool SetPixel(Pixel pixel, int posX, int posY)
+		public bool Set(Pixel pixel, int posX, int posY)
 		{
 			if(posX >= 0 && posX < Width && posY >= 0 && posY < Height)
 			{
