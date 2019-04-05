@@ -21,6 +21,20 @@ namespace ProceduralLevel.ConsoleApp
 		Red			= 12,
 		Magenta		= 13,
 		Yellow		= 14,
-		White		= 15
+		White		= 15,
+
+		Transparent = 255
+	}
+
+	public static class EColorExt
+	{
+		public static EColor ToFrameBuffer(this EColor color)
+		{
+			if(color == EColor.Transparent)
+			{
+				return EColor.Black;
+			}
+			return color;
+		}
 	}
 }

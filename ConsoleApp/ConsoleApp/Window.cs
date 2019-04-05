@@ -9,7 +9,7 @@ namespace ProceduralLevel.ConsoleApp
 		private int m_Height;
 		private bool m_IsFullscreen;
 
-		private Pixel[] m_Buffer;
+		private FramePixel[] m_Buffer;
 
 		public int Width { get { return m_Width; } }
 		public int Height { get { return m_Height; } }
@@ -48,14 +48,26 @@ namespace ProceduralLevel.ConsoleApp
 			{
 				SetSize(m_Width, m_Height);
 			}
-			m_Canvas.Render(this, 0, 0);
+			Render(m_Canvas);
 
 			ConsoleHelper.WriteOutput(m_Buffer, new Coord(Width, Height), new Coord(0, 0));
 		}
 
-		public void Plot(Pixel pixel, int x, int y)
+		private void Render(Canvas canvas)
 		{
-			m_Buffer[y*m_Width+x] = pixel;
+			for(int x = 0; x < Width; ++x)
+			{
+				Pixel[] column = canvas.FrameBuffer[x];
+				for(int y = 0; y < Height; ++y)
+				{
+					Plot(column[y], x, y);
+				}
+			}
+		}
+
+		private void Plot(Pixel pixel, int x, int y)
+		{
+			m_Buffer[y*m_Width+x] = new FramePixel(pixel);
 		}
 
 		public void SetFullscreen(bool fullscreen)
@@ -67,7 +79,7 @@ namespace ProceduralLevel.ConsoleApp
 		public void SetSize(int width, int height)
 		{
 			ConsoleHelper.SetSize(ref width, ref height);
-			m_Buffer = new Pixel[width*height];
+			m_Buffer = new FramePixel[width*height];
 			m_Width = width;
 			m_Height = height;
 			m_Canvas = new Canvas(width, height);

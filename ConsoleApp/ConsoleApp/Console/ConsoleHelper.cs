@@ -16,7 +16,7 @@ namespace ProceduralLevel.ConsoleApp
 			m_StdInputHandle = GetStdHandle(STD_INPUT_HANDLE);
 		}
 
-		public static bool WriteOutput(Pixel[] pixels, Coord bufferSize, Coord bufferCoord)
+		public static bool WriteOutput(FramePixel[] pixels, Coord bufferSize, Coord bufferCoord)
 		{
 			SmallRect writeRegion = new SmallRect(bufferCoord.X, bufferCoord.Y, bufferSize.X, bufferSize.Y);
 			return WriteConsoleOutputW(m_StdOutputHandle, pixels, bufferSize, bufferCoord, ref writeRegion);
@@ -54,7 +54,7 @@ namespace ProceduralLevel.ConsoleApp
 
 		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
 		private static extern bool WriteConsoleOutputW([In] IntPtr hWnd, 
-			[In] Pixel[] pixels,
+			[In] FramePixel[] pixels,
 			[In] Coord bufferSize, [In] Coord bufferCoord, [In, Out] ref SmallRect writeRegion);
 
 		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
